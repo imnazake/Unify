@@ -1,0 +1,153 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.3",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Unify",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"GameplayAbilities",
+				"EnhancedInput",
+				"Engine"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "Paper2D",
+			"Enabled": false
+		},
+		{
+			"Name": "GooglePAD",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidFileServer",
+			"Enabled": false
+		},
+		{
+			"Name": "OnlineSubsystemGooglePlay",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Android"
+			]
+		},
+		{
+			"Name": "AndroidPermission",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidDeviceProfileSelector",
+			"Enabled": false
+		},
+		{
+			"Name": "IOSDeviceProfileSelector",
+			"Enabled": false
+		},
+		{
+			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
+			"Name": "DataRegistry",
+			"Enabled": true
+		},
+		{
+			"Name": "FieldSystemPlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "AndroidMedia",
+			"Enabled": false
+		},
+		{
+			"Name": "AndroidMoviePlayer",
+			"Enabled": false
+		},
+		{
+			"Name": "AppleMoviePlayer",
+			"Enabled": false
+		},
+		{
+			"Name": "MobilePatchingUtils",
+			"Enabled": false
+		},
+		{
+			"Name": "LocationServicesBPLibrary",
+			"Enabled": false
+		},
+		{
+			"Name": "GoogleCloudMessaging",
+			"Enabled": false
+		},
+		{
+			"Name": "OnlineSubsystemIOS",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"IOS",
+				"TVOS"
+			]
+		},
+		{
+			"Name": "CLionSourceCodeAccess",
+			"Enabled": false
+		},
+		{
+			"Name": "CodeLiteSourceCodeAccess",
+			"Enabled": false
+		},
+		{
+			"Name": "XCodeSourceCodeAccess",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Mac"
+			]
+		},
+		{
+			"Name": "VisualStudioCodeSourceCodeAccess",
+			"Enabled": false
+		},
+		{
+			"Name": "AnimationLocomotionLibrary",
+			"Enabled": true
+		},
+		{
+			"Name": "AnimationWarping",
+			"Enabled": true
+		},
+		{
+			"Name": "MotionWarping",
+			"Enabled": true
+		},
+		{
+			"Name": "CommonUI",
+			"Enabled": true
+		},
+		{
+			"Name": "UIExtension",
+			"Enabled": true
+		},
+		{
+			"Name": "ModularGameplay",
+			"Enabled": true
+		},
+		{
+			"Name": "AsyncMixin",
+			"Enabled": true
+		}
+	],
+	"TargetPlatforms": [
+		"Windows",
+		"HoloLens"
+	]
+}
