@@ -1,4 +1,4 @@
-// Copyright Frogster Games. All Rights Reserved.
+// Copyright Nazake. All Rights Reserved.
 
 #include "Input/UnifyInputConfig.h"
 #include "UnifyLogging.h"

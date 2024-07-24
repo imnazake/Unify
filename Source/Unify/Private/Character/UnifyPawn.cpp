@@ -1,4 +1,4 @@
-// Copyright Frogster Games. All Rights Reserved.
+// Copyright Nazake. All Rights Reserved.
 
 #include "Character/UnifyPawn.h"
 #include "Input/UnifyInputComponent.h"

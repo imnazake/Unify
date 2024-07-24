@@ -1,4 +1,4 @@
-// Copyright Frogster Games. All Rights Reserved.
+// Copyright Nazake. All Rights Reserved.
 
 #include "Player/UnifyPlayerState.h"
 #include "AbilitySystem/UnifyAbilitySystemComponent.h"
