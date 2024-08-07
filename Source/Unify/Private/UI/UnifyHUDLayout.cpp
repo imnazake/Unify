@@ -17,13 +17,13 @@ void UUnifyHUDLayout::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
-	RegisterUIActionBinding(FBindUIActionArgs(FUIActionTag::ConvertChecked(TAG_UI_Action_Escape), false, FSimpleDelegate::CreateUObject(this, &ThisClass::HandleEscapeAction)));
+	RegisterUIActionBinding(FBindUIActionArgs(FUIActionTag::ConvertChecked(TAG_UI_Action_Escape), false, FSimpleDelegate::CreateUObject(this, &ThisClass::HandleBackAction)));
 }
 
-void UUnifyHUDLayout::HandleEscapeAction() const
+void UUnifyHUDLayout::HandleBackAction() const
 {
-	if (ensure(!MainMenuClass.IsNull()))
+	if (ensure(!MenuWidgetClass.IsNull()))
 	{
-		UCommonUIExtensions::PushContentToLayer_ForPlayer(GetOwningLocalPlayer(), TAG_UI_Layer_Menus, MainMenuClass.LoadSynchronous());
+		UCommonUIExtensions::PushStreamedContentToLayer_ForPlayer(GetOwningLocalPlayer(), TAG_UI_Layer_Menus, MenuWidgetClass.LoadSynchronous());
 	}
 }

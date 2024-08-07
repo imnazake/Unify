@@ -19,13 +19,12 @@ public:
 	UUnifyHUDLayout(const FObjectInitializer& ObjectInitializer);
 
 	virtual void NativeOnInitialized() override;
-
-protected:
 	
-	void HandleEscapeAction() const;
+	void HandleBackAction() const;
 
 protected:
 
-	UPROPERTY(EditDefaultsOnly)
-	TSoftClassPtr<UCommonActivatableWidget> MainMenuClass;
+	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = true), Category = "Back")
+	TSoftClassPtr<UCommonActivatableWidget> MenuWidgetClass;
+	
 };
