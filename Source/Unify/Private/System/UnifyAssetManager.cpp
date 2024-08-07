@@ -24,7 +24,7 @@ UUnifyAssetManager& UUnifyAssetManager::Get()
 		return *Singleton;
 	}
 
-	BASTION_LOG(Fatal, TEXT("Invalid AssetManagerClassName in DefaultEngine.ini. It must be set to UnifyAssetManager!"));
+	UNIFY_LOG(Fatal, TEXT("Invalid AssetManagerClassName in DefaultEngine.ini. It must be set to UnifyAssetManager!"));
 
 	// Fatal error above prevents this from being called.
 	return *NewObject<UUnifyAssetManager>();
@@ -32,15 +32,15 @@ UUnifyAssetManager& UUnifyAssetManager::Get()
 
 void UUnifyAssetManager::DumpLoadedAssets()
 {
-	BASTION_LOG(Log, TEXT("========== Start Dumping Loaded Assets =========="));
+	UNIFY_LOG(Log, TEXT("========== Start Dumping Loaded Assets =========="));
 
 	for (const UObject* LoadedAsset : Get().LoadedAssets)
 	{
-		BASTION_LOG(Log, TEXT("> %s"), *GetNameSafe(LoadedAsset));
+		UNIFY_LOG(Log, TEXT("> %s"), *GetNameSafe(LoadedAsset));
 	}
 
-	BASTION_LOG(Log, TEXT("There are %d assets in loaded pool"), Get().LoadedAssets.Num());
-	BASTION_LOG(Log, TEXT("========== Finish Dumping Loaded Assets =========="));
+	UNIFY_LOG(Log, TEXT("There are %d assets in loaded pool"), Get().LoadedAssets.Num());
+	UNIFY_LOG(Log, TEXT("========== Finish Dumping Loaded Assets =========="));
 }
 
 void UUnifyAssetManager::StartInitialLoading()

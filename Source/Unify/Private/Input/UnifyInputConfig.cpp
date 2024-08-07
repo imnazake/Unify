@@ -34,7 +34,7 @@ FUnifyInputAction UUnifyInputConfig::FindNativeActionForTag(const FGameplayTag& 
 
 	if (bLogNotFound)
 	{
-		BASTION_LOG(Error, TEXT("Can't find NativeAction for InputTag {0} on InputConfig {1}"), *InputTag.ToString(), *THIS_OBJECT_NAME);
+		UNIFY_LOG(Error, TEXT("Can't find NativeAction for InputTag {0} on InputConfig {1}"), *InputTag.ToString(), *THIS_OBJECT_NAME);
 	}
 
 	return FUnifyInputAction();
@@ -52,7 +52,7 @@ const UInputAction* UUnifyInputConfig::FindNativeInputActionForTag(const FGamepl
 
 	if (bLogNotFound)
 	{
-		BASTION_LOG(Error, TEXT("Can't find NativeInputAction for InputTag [%s] on InputConfig [%s]."), *InputTag.ToString(), *THIS_OBJECT_NAME);
+		UNIFY_LOG(Error, TEXT("Can't find NativeInputAction for InputTag [%s] on InputConfig [%s]."), *InputTag.ToString(), *THIS_OBJECT_NAME);
 	}
 
 	return nullptr;
@@ -70,7 +70,7 @@ FUnifyInputAction UUnifyInputConfig::FindAbilityActionForTag(const FGameplayTag&
 
 	if (bLogNotFound)
 	{
-		BASTION_LOG(Error, TEXT("Can't find NativeAction for InputTag [%s] on InputConfig [%s]."), *InputTag.ToString(), *THIS_OBJECT_NAME);
+		UNIFY_LOG(Error, TEXT("Can't find NativeAction for InputTag [%s] on InputConfig [%s]."), *InputTag.ToString(), *THIS_OBJECT_NAME);
 	}
 
 	return FUnifyInputAction();
@@ -88,7 +88,7 @@ const UInputAction* UUnifyInputConfig::FindAbilityInputActionForTag(const FGamep
 
 	if (bLogNotFound)
 	{
-		BASTION_LOG(Error, TEXT("Can't find AbilityInputAction for InputTag [%s] on InputConfig [%s]."), *InputTag.ToString(), *THIS_OBJECT_NAME);
+		UNIFY_LOG(Error, TEXT("Can't find AbilityInputAction for InputTag [%s] on InputConfig [%s]."), *InputTag.ToString(), *THIS_OBJECT_NAME);
 	}
 
 	return nullptr;

@@ -13,7 +13,7 @@ class AUnifyCharacter;
 /**
  * EGameplayAbilityActivationPolicy
  *
- * Defines different activation policies for abilities in Bastion.
+ * Defines different activation policies for abilities in Unify.
  */
 UENUM(BlueprintType)
 enum class EGameplayAbilityActivationPolicy : uint8

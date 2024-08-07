@@ -425,7 +425,7 @@ void AUnifyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	UUnifyInputComponent* BastionInputComponent = CastChecked<UUnifyInputComponent>(PlayerInputComponent);
-	InitializePlayerInput(BastionInputComponent);
+	UUnifyInputComponent* UnifyInputComponent = CastChecked<UUnifyInputComponent>(PlayerInputComponent);
+	InitializePlayerInput(UnifyInputComponent);
 }
 

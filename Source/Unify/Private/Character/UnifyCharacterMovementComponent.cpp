@@ -7,10 +7,10 @@
 #include "AbilitySystemGlobals.h"
 #include "UnifyGameplayTags.h"
 
-namespace BastionCharacter
+namespace UnifyCharacter
 {
 	static float GroundTraceDistance = 100000.0f;
-	FAutoConsoleVariableRef CVar_GroundTraceDistance(TEXT("BastionCharacter.GroundTraceDistance"), GroundTraceDistance, TEXT("Distance to trace down when generating ground information."), ECVF_Cheat);
+	FAutoConsoleVariableRef CVar_GroundTraceDistance(TEXT("UnifyCharacter.GroundTraceDistance"), GroundTraceDistance, TEXT("Distance to trace down when generating ground information."), ECVF_Cheat);
 };
 
 FUnifyCharacterGroundInfo::FUnifyCharacterGroundInfo() : LastUpdateFrame(0), GroundDistance(0.0f)
@@ -73,9 +73,9 @@ const FUnifyCharacterGroundInfo& UUnifyCharacterMovementComponent::GetGroundInfo
 		const float CapsuleHalfHeight = MyCapsuleComponent->GetUnscaledCapsuleHalfHeight();
 		const ECollisionChannel CollisionChannel = (UpdatedComponent ? UpdatedComponent->GetCollisionObjectType() : ECC_Pawn);
 		const FVector TraceStart(GetActorLocation());
-		const FVector TraceEnd(TraceStart.X, TraceStart.Y, (TraceStart.Z - BastionCharacter::GroundTraceDistance - CapsuleHalfHeight));
+		const FVector TraceEnd(TraceStart.X, TraceStart.Y, (TraceStart.Z - UnifyCharacter::GroundTraceDistance - CapsuleHalfHeight));
 
-		FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(BastionCharacterMovementComponent_GetGroundInfo), false, CharacterOwner);
+		FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(UnifyCharacterMovementComponent_GetGroundInfo), false, CharacterOwner);
 		FCollisionResponseParams ResponseParam;
 		InitCollisionParams(QueryParams, ResponseParam);
 
@@ -83,7 +83,7 @@ const FUnifyCharacterGroundInfo& UUnifyCharacterMovementComponent::GetGroundInfo
 		GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, CollisionChannel, QueryParams, ResponseParam);
 
 		CachedGroundInfo.GroundHitResult = HitResult;
-		CachedGroundInfo.GroundDistance = BastionCharacter::GroundTraceDistance;
+		CachedGroundInfo.GroundDistance = UnifyCharacter::GroundTraceDistance;
 
 		if (MovementMode == MOVE_NavWalking)
 		{

@@ -211,6 +211,6 @@ TArray<UUnifyInputConfig*> AUnifyPlayerController::GetInputConfigsForPawn(APawn*
 		return MyCharacter->GetInputConfigs();
 	}
 
-	BASTION_LOG(Warning, TEXT("%s - Pawn (%s) does not have an input config! It needs to inherit from BastionPawn or BastionCharacter classes."), *THIS_FUNCTION, *GetNameSafe(InPawn));
+	UNIFY_LOG(Warning, TEXT("%s - Pawn (%s) does not have an input config! It needs to inherit from UnifyPawn or UnifyCharacter classes."), *THIS_FUNCTION, *GetNameSafe(InPawn));
 	return TArray<UUnifyInputConfig*>();
 }

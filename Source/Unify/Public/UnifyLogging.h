@@ -11,12 +11,12 @@
 
 UNIFY_API DECLARE_LOG_CATEGORY_EXTERN(LogUnify, Display, All);
 
-#define BASTION_LOG(Verbosity, Format, ...) \
+#define UNIFY_LOG(Verbosity, Format, ...) \
 { \
 	UE_LOG(LogUnify, Verbosity, Format, ##__VA_ARGS__); \
 }
 
-#define BASTION_FORMAT_LOG(Verbosity, Format, ...) \
+#define UNIFY_FORMAT_LOG(Verbosity, Format, ...) \
 { \
 	UE_LOGFMT(LogUnify, Verbosity, Format, ##__VA_ARGS__); \
 }

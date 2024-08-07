@@ -35,7 +35,7 @@ FGameplayTag FUnifyGameplayTags::FindTagByString(const FString& TagString, const
 		{
 			if (TestTag.ToString().Contains(TagString))
 			{
-				BASTION_LOG(Display, TEXT("Could not find exact match for tag [%s] but found partial match on tag [%s]."), *TagString, *TestTag.ToString());
+				UNIFY_LOG(Display, TEXT("Could not find exact match for tag [%s] but found partial match on tag [%s]."), *TagString, *TestTag.ToString());
 				Tag = TestTag;
 				break;
 			}

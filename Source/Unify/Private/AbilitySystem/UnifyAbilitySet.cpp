@@ -99,7 +99,7 @@ void UUnifyAbilitySet::GrantToAbilitySystem(UUnifyAbilitySystemComponent* Abilit
 
 		if (!IsValid(AbilityToGrant.AbilityClass))
 		{
-			BASTION_LOG(Error, TEXT("GrantedAbilities[%d] on ability set [%s] is not valid."), AbilityIndex, *GetNameSafe(this));
+			UNIFY_LOG(Error, TEXT("GrantedAbilities[%d] on ability set [%s] is not valid."), AbilityIndex, *GetNameSafe(this));
 			continue;
 		}
 
@@ -124,7 +124,7 @@ void UUnifyAbilitySet::GrantToAbilitySystem(UUnifyAbilitySystemComponent* Abilit
 
 		if (!IsValid(EffectToGrant.EffectClass))
 		{
-			BASTION_LOG(Error, TEXT("GrantedGameplayEffects[%d] on ability set [%s] is not valid"), EffectIndex, *GetNameSafe(this));
+			UNIFY_LOG(Error, TEXT("GrantedGameplayEffects[%d] on ability set [%s] is not valid"), EffectIndex, *GetNameSafe(this));
 			continue;
 		}
 
@@ -144,7 +144,7 @@ void UUnifyAbilitySet::GrantToAbilitySystem(UUnifyAbilitySystemComponent* Abilit
 
 		if (!IsValid(SetToGrant.AttributeSet))
 		{
-			BASTION_LOG(Error, TEXT("GrantedAttributes[%d] on ability set [%s] is not valid"), SetIndex, *GetNameSafe(this));
+			UNIFY_LOG(Error, TEXT("GrantedAttributes[%d] on ability set [%s] is not valid"), SetIndex, *GetNameSafe(this));
 			continue;
 		}
 

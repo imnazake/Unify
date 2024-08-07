@@ -20,8 +20,8 @@ void AUnifyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	UUnifyInputComponent* BastionInputComponent = CastChecked<UUnifyInputComponent>(PlayerInputComponent);
-	InitializePlayerInput(BastionInputComponent);
+	UUnifyInputComponent* UnifyInputComponent = CastChecked<UUnifyInputComponent>(PlayerInputComponent);
+	InitializePlayerInput(UnifyInputComponent);
 }
 
 void AUnifyPawn::PossessedBy(AController* NewController)

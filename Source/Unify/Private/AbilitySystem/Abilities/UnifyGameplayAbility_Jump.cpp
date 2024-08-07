@@ -16,8 +16,8 @@ bool UUnifyGameplayAbility_Jump::CanActivateAbility(const FGameplayAbilitySpecHa
 		return false;
 	}
 
-	const AUnifyCharacter* BastionCharacter = Cast<AUnifyCharacter>(ActorInfo->AvatarActor.Get());
-	if (!BastionCharacter || !BastionCharacter->CanJump())
+	const AUnifyCharacter* UnifyCharacter = Cast<AUnifyCharacter>(ActorInfo->AvatarActor.Get());
+	if (!UnifyCharacter || !UnifyCharacter->CanJump())
 	{
 		return false;
 	}
@@ -40,23 +40,23 @@ void UUnifyGameplayAbility_Jump::EndAbility(const FGameplayAbilitySpecHandle Han
 
 void UUnifyGameplayAbility_Jump::CharacterJumpStart()
 {
-	if (AUnifyCharacter* BastionCharacter = GetUnifyCharacterFromActorInfo())
+	if (AUnifyCharacter* UnifyCharacter = GetUnifyCharacterFromActorInfo())
 	{
-		if (BastionCharacter->IsLocallyControlled() && !BastionCharacter->bPressedJump)
+		if (UnifyCharacter->IsLocallyControlled() && !UnifyCharacter->bPressedJump)
 		{
-			BastionCharacter->UnCrouch();
-			BastionCharacter->Jump();
+			UnifyCharacter->UnCrouch();
+			UnifyCharacter->Jump();
 		}
 	}
 }
 
 void UUnifyGameplayAbility_Jump::CharacterJumpStop()
 {
-	if (AUnifyCharacter* BastionCharacter = GetUnifyCharacterFromActorInfo())
+	if (AUnifyCharacter* UnifyCharacter = GetUnifyCharacterFromActorInfo())
 	{
-		if (BastionCharacter->IsLocallyControlled() && BastionCharacter->bPressedJump)
+		if (UnifyCharacter->IsLocallyControlled() && UnifyCharacter->bPressedJump)
 		{
-			BastionCharacter->StopJumping();
+			UnifyCharacter->StopJumping();
 		}
 	}
 }

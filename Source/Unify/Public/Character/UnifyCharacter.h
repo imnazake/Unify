@@ -69,7 +69,7 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ IAbilitySystemInterface
 
-	/*UFUNCTION(BlueprintPure, Category = "Bastion|Character")
+	/*UFUNCTION(BlueprintPure, Category = "Unify|Character")
 	UEquipmentComponent* GetEquipmentComponent() const;*/
 
 	UFUNCTION(BlueprintPure, Category = "Unify|Character")
