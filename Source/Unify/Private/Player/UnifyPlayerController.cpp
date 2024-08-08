@@ -16,14 +16,19 @@ AUnifyPlayerController::AUnifyPlayerController()
 	// Required for aiming with the player controller and using its transform
 	bAttachToPawn = true;
 
-	/*InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+#if COMPILE_GAMEPLAY_CONTAINERS
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	InventoryComponent->SetIsReplicated(true);
 	
 	HotbarComponent = CreateDefaultSubobject<UHotbarComponent>(TEXT("HotbarComponent"));
 	HotbarComponent->SetIsReplicated(true);
+#endif
 
+#if COMPILE_GAMEPLAY_INTERACTION
 	InteractionComponent = CreateDefaultSubobject<UGameplayInteractionComponent>(TEXT("InteractionComponent"));
-	InteractionComponent->SetIsReplicated(true);*/
+	InteractionComponent->SetIsReplicated(true);
+#endif
+
 }
 
 void AUnifyPlayerController::BeginPlay()
@@ -63,10 +68,14 @@ UAbilitySystemComponent* AUnifyPlayerController::GetAbilitySystemComponent() con
 	return nullptr;
 }
 
-/*UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent()
+#if COMPILE_GAMEPLAY_INTERACTION
+
+UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent()
 {
 	return InteractionComponent;
-}*/
+}
+
+#endif
 
 void AUnifyPlayerController::PreProcessInput(const float DeltaTime, const bool bGamePaused)
 {
@@ -93,7 +102,8 @@ UUnifyAbilitySystemComponent* AUnifyPlayerController::GetUnifyAbilitySystemCompo
 	return nullptr;
 }
 
-/*
+#if COMPILE_GAMEPLAY_CONTAINERS
+
 UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent() const
 {
 	return InteractionComponent;
@@ -108,13 +118,16 @@ UHotbarComponent* AUnifyPlayerController::GetHotbarComponent() const
 {
 	return HotbarComponent;
 }
-*/
+
+#endif
 
 void AUnifyPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	/*if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(InPawn))
+#if COMPILE_GAMEPLAY_CONTAINERS
+	
+	if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(InPawn))
 	{
 		MyCharacter->GetEquipmentComponent()->RegisterWithInventoryComponent(InventoryComponent);
 	}
@@ -123,8 +136,19 @@ void AUnifyPlayerController::OnPossess(APawn* InPawn)
 	{
 		HotbarComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		InventoryComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
+	}
+
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+
+	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	{
 		InteractionComponent->RegisterAbilitySystemComponent(PS->GetAbilitySystemComponent());
-	}*/
+	}
+	
+#endif
+	
 }
 
 void AUnifyPlayerController::OnUnPossess()
@@ -149,22 +173,40 @@ void AUnifyPlayerController::AcknowledgePossession(APawn* InPawn)
 {
 	Super::AcknowledgePossession(InPawn);
 
-	/*if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(InPawn))
+#if COMPILE_GAMEPLAY_CONTAINERS
+	
+	if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(InPawn))
 	{
 		MyCharacter->GetEquipmentComponent()->RegisterWithInventoryComponent(InventoryComponent);
-	}*/
+	}
+
+#endif
+	
 }
 
 void AUnifyPlayerController::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 
-	/*if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+#if COMPILE_GAMEPLAY_CONTAINERS
+	
+	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		HotbarComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		InventoryComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
+	}
+
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+	
+	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	{
 		InteractionComponent->RegisterAbilitySystemComponent(PS->GetAbilitySystemComponent());
-	}*/
+	}
+	
+#endif
+	
 }
 
 void AUnifyPlayerController::OnPossessedPawnChangedCallback(APawn* OldPossessedPawn, APawn* NewPossessedPawn)

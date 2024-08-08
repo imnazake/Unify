@@ -20,10 +20,7 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	NetCullDistanceSquared = 900000000.0f;
-
-	/*EquipmentComponent = CreateDefaultSubobject<UEquipmentComponent>(TEXT("EquipmentComponent"));
-	EquipmentComponent->SetIsReplicated(true);*/
-
+	
 	UUnifyCharacterMovementComponent* MovementComponent = CastChecked<UUnifyCharacterMovementComponent>(GetCharacterMovement());
 	MovementComponent->GravityScale = 1.0f;
 	MovementComponent->MaxAcceleration = 2400.0f;
@@ -98,6 +95,12 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 
 	BaseEyeHeight = 90.0f;
 	CrouchedEyeHeight = 35.0f;
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+	EquipmentComponent = CreateDefaultSubobject<UEquipmentComponent>(TEXT("EquipmentComponent"));
+	EquipmentComponent->SetIsReplicated(true);
+#endif
+	
 }
 
 void AUnifyCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -112,15 +115,17 @@ void AUnifyCharacter::PossessedBy(AController* NewController)
 	if (AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, /*Avatar*/ this);
-		
-		/*if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 			GameplayContainerInterface->GetHotbarComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		}
 		
-		EquipmentComponent->RegisterWithAbilitySystem(GetAbilitySystemComponent());*/
-
+		EquipmentComponent->RegisterWithAbilitySystem(GetAbilitySystemComponent());
+#endif
+		
 		for (UUnifyAbilitySet* AbilitySet: AbilitySets)
 		{
 			if (AbilitySet)
@@ -137,13 +142,16 @@ void AUnifyCharacter::UnPossessed()
 {
 	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
-		/*if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->UnregisterAbilitySystem();
 			GameplayContainerInterface->GetHotbarComponent()->UnregisterAbilitySystem();
 		}
 
-		EquipmentComponent->UnregisterAbilitySystem();*/
+		EquipmentComponent->UnregisterAbilitySystem();
+#endif
 		
 		for (FUnifyAbilitySetGrantedHandles* Handle: AbilitySetsGrantedHandles)
 		{
@@ -173,13 +181,16 @@ void AUnifyCharacter::OnRep_PlayerState()
 	{
 		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, /*Avatar*/ this);
 
-		/*if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
+#if COMPILE_GAMEPLAY_CONTAINERS
+		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 			GameplayContainerInterface->GetHotbarComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		}
 		
-		EquipmentComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());*/
+		EquipmentComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
+#endif
+		
 	}
 }
 
@@ -203,7 +214,9 @@ AUnifyPlayerController* AUnifyCharacter::GetUnifyPlayerController() const
 	return GetController<AUnifyPlayerController>();
 }
 
-/*TArray<UGameplayContainerComponent*> AUnifyCharacter::GetGameplayContainers()
+#if COMPILE_GAMEPLAY_CONTAINERS
+
+TArray<UGameplayContainerComponent*> AUnifyCharacter::GetGameplayContainers()
 {
 	TArray<UGameplayContainerComponent*> Containers;
 
@@ -225,7 +238,9 @@ UHotbarComponent* AUnifyCharacter::GetHotbarComponent()
 UEquipmentComponent* AUnifyCharacter::GetEquipmentComponent()
 {
 	return EquipmentComponent;
-}*/
+}
+
+#endif
 
 void AUnifyCharacter::Input_AbilityInputTagPressed(const FGameplayTag InputTag)
 {
@@ -284,38 +299,62 @@ void AUnifyCharacter::Input_Look(const FInputActionValue& InputActionValue)
 
 void AUnifyCharacter::Input_Hotbar_1()
 {
+	
+#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(0, FailureTags);
+	GetHotbarComponent()->ToggleSlot(0, FailureTags);
+#endif
+	
 }
 
 void AUnifyCharacter::Input_Hotbar_2()
 {
+	
+#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(1, FailureTags);
+	GetHotbarComponent()->ToggleSlot(1, FailureTags);
+#endif
+	
 }
 
 void AUnifyCharacter::Input_Hotbar_3()
 {
+	
+#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(2, FailureTags);
+	GetHotbarComponent()->ToggleSlot(2, FailureTags);
+#endif
+	
 }
 
 void AUnifyCharacter::Input_Hotbar_4()
 {
+	
+#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(3, FailureTags);
+	GetHotbarComponent()->ToggleSlot(3, FailureTags);
+#endif
+	
 }
 
 void AUnifyCharacter::Input_Hotbar_5()
 {
+	
+#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(4, FailureTags);
+	GetHotbarComponent()->ToggleSlot(4, FailureTags);
+#endif
+	
 }
 
 void AUnifyCharacter::Input_Hotbar_6()
 {
+	
+#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(5, FailureTags);
+	GetHotbarComponent()->ToggleSlot(5, FailureTags);
+#endif
+	
 }
 
 void AUnifyCharacter::EnableMovementAndCollision() const

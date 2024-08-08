@@ -9,9 +9,9 @@
 #include "UnifyHealthSet.generated.h"
 
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_Damage);
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_DamageImmunity);
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_DamageSelfDestruct);
-UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_FellOutOfWorld);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_Damage_Immunity);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_Damage_SelfDestruct);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_Damage_FellOutOfWorld);
 
 /**
  * UUnifyHealthSet

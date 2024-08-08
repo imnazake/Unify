@@ -40,25 +40,11 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Unify|Character")
 	AUnifyPlayerController* GetUnifyPlayerController() const;
 
-	/*//~IGameplayContainerInterface
-	virtual TArray<UGameplayContainerComponent*> GetGameplayContainers() override;
-	virtual UInventoryComponent* GetInventoryComponent() override;
-	virtual UHotbarComponent* GetHotbarComponent() override;
-	virtual UEquipmentComponent* GetEquipmentComponent() override;
-	//~IGameplayContainerInterface*/
-
 	void Input_AbilityInputTagPressed(FGameplayTag InputTag);
 	void Input_AbilityInputTagReleased(FGameplayTag InputTag);
 
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
-
-	void Input_Hotbar_1();
-	void Input_Hotbar_2();
-	void Input_Hotbar_3();
-	void Input_Hotbar_4();
-	void Input_Hotbar_5();
-	void Input_Hotbar_6();
 
 	TArray<FUnifyAbilitySetGrantedHandles*> GetAbilitySetGrantedHandles() const;
 

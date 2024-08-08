@@ -93,35 +93,6 @@ AUnifyPlayerController* AUnifyPawn::GetUnifyPlayerController() const
 	return GetController<AUnifyPlayerController>();
 }
 
-/*TArray<UGameplayContainerComponent*> AUnifyPawn::GetGameplayContainers()
-{
-	TArray<UGameplayContainerComponent*> Containers;
-
-	// Add all the container components on your pawn class here
-	
-	return Containers;
-}
-
-UInventoryComponent* AUnifyPawn::GetInventoryComponent()
-{
-	// You can change that if your inventory component is somewhere else
-	return GetUnifyPlayerController()->GetInventoryComponent();
-}
-
-UHotbarComponent* AUnifyPawn::GetHotbarComponent()
-{
-	// You can change that if your hotbar component is somewhere else
-	return GetUnifyPlayerController()->GetHotbarComponent();
-}
-
-UEquipmentComponent* AUnifyPawn::GetEquipmentComponent()
-{
-	// You can change that if your equipment component is somewhere else
-	// TODO: currently this pawn does not have an equipment component
-	
-	return nullptr;
-}*/
-
 void AUnifyPawn::Input_AbilityInputTagPressed(const FGameplayTag InputTag)
 {
 	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
@@ -177,42 +148,6 @@ void AUnifyPawn::Input_Look(const FInputActionValue& InputActionValue)
 	}
 }
 
-void AUnifyPawn::Input_Hotbar_1()
-{
-	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(0, FailureTags);
-}
-
-void AUnifyPawn::Input_Hotbar_2()
-{
-	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(1, FailureTags);
-}
-
-void AUnifyPawn::Input_Hotbar_3()
-{
-	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(2, FailureTags);
-}
-
-void AUnifyPawn::Input_Hotbar_4()
-{
-	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(3, FailureTags);
-}
-
-void AUnifyPawn::Input_Hotbar_5()
-{
-	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(4, FailureTags);
-}
-
-void AUnifyPawn::Input_Hotbar_6()
-{
-	FGameplayTagContainer FailureTags;
-	//GetHotbarComponent()->ToggleSlot(5, FailureTags);
-}
-
 TArray<FUnifyAbilitySetGrantedHandles*> AUnifyPawn::GetAbilitySetGrantedHandles() const
 {
 	return AbilitySetsGrantedHandles;
@@ -252,14 +187,6 @@ void AUnifyPawn::InitializePlayerInput(UUnifyInputComponent* PlayerInputComponen
 			// Bind Move & Look Input
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Move, this, &ThisClass::Input_Move, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Look, this, &ThisClass::Input_Look, /*bLogIfNotFound=*/ false);
-
-			// Bind Hotbar Input
-			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_1, this, &ThisClass::Input_Hotbar_1, /*bLogIfNotFound=*/ false);
-			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_2, this, &ThisClass::Input_Hotbar_2, /*bLogIfNotFound=*/ false);
-			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_3, this, &ThisClass::Input_Hotbar_3, /*bLogIfNotFound=*/ false);
-			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_4, this, &ThisClass::Input_Hotbar_4, /*bLogIfNotFound=*/ false);
-			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_5, this, &ThisClass::Input_Hotbar_5, /*bLogIfNotFound=*/ false);
-			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_6, this, &ThisClass::Input_Hotbar_6, /*bLogIfNotFound=*/ false);
 		}
 	}
 }

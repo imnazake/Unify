@@ -1,8 +1,6 @@
 // Copyright Nazake. All Rights Reserved.
 
-
 #include "Camera/UnifyCameraComponent.h"
-
 
 // Sets default values for this component's properties
 UUnifyCameraComponent::UUnifyCameraComponent()

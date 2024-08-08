@@ -65,6 +65,40 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Unify|PlayerController")
 	UUnifyAbilitySystemComponent* GetUnifyAbilitySystemComponent() const;
 
+#if COMPILE_GAMEPLAY_CONTAINERS
+	/** Uncomment this if compile gameplay containers is enabled. */
+	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
+	UInventoryComponent* GetInventoryComponent() const;
+	
+	/** Uncomment this if compile gameplay containers is enabled. */
+	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
+	UHotbarComponent* GetHotbarComponent() const;
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+	/** Uncomment this if compile gameplay interaction is enabled. */
+	//UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
+	UGameplayInteractionComponent* GetInteractionComponent() const;
+#endif
+
+protected:
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+	/** Uncomment this if compile gameplay containers is enabled. */
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	TObjectPtr<UInventoryComponent> InventoryComponent;
+
+	/** Uncomment this if compile gameplay containers is enabled. */
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	TObjectPtr<UHotbarComponent> HotbarComponent;
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+	/** Uncomment this if compile gameplay interaction is enabled. */
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	TObjectPtr<UGameplayInteractionComponent> InteractionComponent;
+#endif
+
 private:
 
 	UFUNCTION()

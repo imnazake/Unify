@@ -46,12 +46,6 @@ void UUnifyAbilitySystemComponent::InitAbilityActorInfo(AActor* InOwnerActor, AA
 			}
 		}
 
-		// Register with the global system once we actually have a pawn avatar. We wait until this time since some globally-applied effects may require an avatar.
-		/*if (ULyraGlobalAbilitySystem* GlobalAbilitySystem = UWorld::GetSubsystem<ULyraGlobalAbilitySystem>(GetWorld()))
-		{
-			GlobalAbilitySystem->RegisterASC(this);
-		}*/
-
 		if (UUnifyAnimationInstance* AnimInstance = Cast<UUnifyAnimationInstance>(ActorInfo->GetAnimInstance()))
 		{
 			AnimInstance->RegisterWithAbilitySystem(this);

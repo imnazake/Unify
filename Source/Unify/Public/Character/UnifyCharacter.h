@@ -69,8 +69,16 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ IAbilitySystemInterface
 
-	/*UFUNCTION(BlueprintPure, Category = "Unify|Character")
-	UEquipmentComponent* GetEquipmentComponent() const;*/
+#if COMPILE_GAMEPLAY_CONTAINERS
+
+	//~IGameplayContainerInterface
+	virtual TArray<UGameplayContainerComponent*> GetGameplayContainers() override;
+	virtual UInventoryComponent* GetInventoryComponent() override;
+	virtual UHotbarComponent* GetHotbarComponent() override;
+	virtual UEquipmentComponent* GetEquipmentComponent() override;
+	//~IGameplayContainerInterface
+
+#endif
 
 	UFUNCTION(BlueprintPure, Category = "Unify|Character")
 	UUnifyAbilitySystemComponent* GetUnifyAbilitySystemComponent() const;
@@ -87,8 +95,11 @@ protected:
 
 protected:
 
-	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Equipment")
-	TObjectPtr<UEquipmentComponent> EquipmentComponent;*/
+#if COMPILE_GAMEPLAY_CONTAINERS
+	/** Uncomment this if compile gameplay containers is enabled. */
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Equipment")
+	TObjectPtr<UEquipmentComponent> EquipmentComponent;
+#endif
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
 	TObjectPtr<USkeletalMeshComponent> Head;
