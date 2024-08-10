@@ -3,24 +3,43 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Unify/Unify.h"
 #include "AbilitySystemInterface.h"
 #include "CommonPlayerController.h"
 #include "AbilitySystem/UnifyAbilitySet.h"
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+#include "Core/IGameplayContainerInterface.h"
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+#include "Core/IGameplayInteractionInterface.h"
+#endif
+
 #include "UnifyPlayerController.generated.h"
 
-class UGameplayInteractionComponent;
 class UHotbarComponent;
 class UInventoryComponent;
 class UUnifyInputConfig;
 class UUnifyHUDLayout;
 class UInputMappingContext;
 class UUnifyAbilitySystemComponent;
+class UGameplayInteractionComponent;
 
 /**
  * AUnifyPlayerController
  */
 UCLASS()
 class UNIFY_API AUnifyPlayerController : public ACommonPlayerController, public IAbilitySystemInterface
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+	, public IGameplayContainerInterface
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+	, public IGameplayInteractionInterface
+#endif
+
 {
 	GENERATED_BODY()
 
@@ -66,6 +85,17 @@ public:
 	UUnifyAbilitySystemComponent* GetUnifyAbilitySystemComponent() const;
 
 #if COMPILE_GAMEPLAY_CONTAINERS
+
+	//~IGameplayContainerInterface
+	virtual TArray<UGameplayContainerComponent*> GetGameplayContainers() override;
+	virtual UInventoryComponent* GetInventoryComponent() override;
+	virtual UHotbarComponent* GetHotbarComponent() override;
+	virtual UEquipmentComponent* GetEquipmentComponent() override;
+	//~IGameplayContainerInterface
+
+#endif
+
+#if COMPILE_GAMEPLAY_CONTAINERS
 	/** Uncomment this if compile gameplay containers is enabled. */
 	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
 	UInventoryComponent* GetInventoryComponent() const;
@@ -74,11 +104,11 @@ public:
 	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
 	UHotbarComponent* GetHotbarComponent() const;
 #endif
-
+	
 #if COMPILE_GAMEPLAY_INTERACTION
 	/** Uncomment this if compile gameplay interaction is enabled. */
 	//UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
-	UGameplayInteractionComponent* GetInteractionComponent() const;
+	virtual UGameplayInteractionComponent* GetInteractionComponent() override;
 #endif
 
 protected:

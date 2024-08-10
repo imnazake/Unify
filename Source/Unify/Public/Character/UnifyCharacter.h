@@ -3,9 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Unify/Unify.h"
 #include "InputActionValue.h"
 #include "GameplayTagContainer.h"
 #include "AbilitySystemInterface.h"
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+#include "Core/IGameplayContainerInterface.h"
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+#include "Core/IGameplayInteractionInterface.h"
+#endif
+
 #include "GameFramework/Character.h"
 #include "UnifyCharacter.generated.h"
 
@@ -25,6 +35,15 @@ struct FUnifyAbilitySetGrantedHandles;
  */
 UCLASS()
 class UNIFY_API AUnifyCharacter : public ACharacter, public IAbilitySystemInterface
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+	, public IGameplayContainerInterface
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+	, public IGameplayInteractionInterface
+#endif
+
 {
 	GENERATED_BODY()
 
@@ -53,12 +72,22 @@ public:
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
 
+#if COMPILE_GAMEPLAY_INTERACTION
+	/** Uncomment this if compile gameplay interaction is enabled. */
+	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
+	virtual UGameplayInteractionComponent* GetInteractionComponent() override;
+#endif
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+	
 	void Input_Hotbar_1();
 	void Input_Hotbar_2();
 	void Input_Hotbar_3();
 	void Input_Hotbar_4();
 	void Input_Hotbar_5();
 	void Input_Hotbar_6();
+	
+#endif
 
 	void EnableMovementAndCollision() const;
 	void DisableMovementAndCollision() const;

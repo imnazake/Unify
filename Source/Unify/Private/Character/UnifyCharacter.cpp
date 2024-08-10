@@ -8,10 +8,20 @@
 #include "Input/UnifyInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Player/UnifyPlayerState.h"
+#include "Player/UnifyPlayerController.h"
 #include "Components/CapsuleComponent.h"
 #include "UnifyGameplayTags.h"
 #include "InputMappingContext.h"
-#include "Player/UnifyPlayerController.h"
+
+#if COMPILE_GAMEPLAY_INTERACTION
+#include "Core/GameplayInteractionComponent.h"
+#endif
+
+#if COMPILE_GAMEPLAY_CONTAINERS
+#include "Core/Inventory/InventoryComponent.h"
+#include "Core/Equipment/EquipmentComponent.h"
+#include "Core/Hotbar/HotbarComponent.h"
+#endif
 
 AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UUnifyCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
@@ -168,6 +178,15 @@ void AUnifyCharacter::UnPossessed()
 	Super::UnPossessed();
 }
 
+#if COMPILE_GAMEPLAY_INTERACTION
+
+UGameplayInteractionComponent* AUnifyCharacter::GetInteractionComponent()
+{
+	return InteractionComponent;
+}
+
+#endif
+
 void AUnifyCharacter::NotifyControllerChanged()
 {
 	Super::NotifyControllerChanged();
@@ -297,65 +316,45 @@ void AUnifyCharacter::Input_Look(const FInputActionValue& InputActionValue)
 	}
 }
 
+#if COMPILE_GAMEPLAY_CONTAINERS
+
 void AUnifyCharacter::Input_Hotbar_1()
 {
-	
-#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
 	GetHotbarComponent()->ToggleSlot(0, FailureTags);
-#endif
-	
 }
 
 void AUnifyCharacter::Input_Hotbar_2()
 {
-	
-#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
 	GetHotbarComponent()->ToggleSlot(1, FailureTags);
-#endif
-	
 }
 
 void AUnifyCharacter::Input_Hotbar_3()
 {
-	
-#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
 	GetHotbarComponent()->ToggleSlot(2, FailureTags);
-#endif
-	
 }
 
 void AUnifyCharacter::Input_Hotbar_4()
 {
-	
-#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
 	GetHotbarComponent()->ToggleSlot(3, FailureTags);
-#endif
-	
 }
 
 void AUnifyCharacter::Input_Hotbar_5()
 {
-	
-#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
 	GetHotbarComponent()->ToggleSlot(4, FailureTags);
-#endif
-	
 }
 
 void AUnifyCharacter::Input_Hotbar_6()
 {
-	
-#if COMPILE_GAMEPLAY_CONTAINERS
 	FGameplayTagContainer FailureTags;
 	GetHotbarComponent()->ToggleSlot(5, FailureTags);
-#endif
-	
 }
+
+#endif
 
 void AUnifyCharacter::EnableMovementAndCollision() const
 {
@@ -444,6 +443,8 @@ void AUnifyCharacter::InitializePlayerInput(UUnifyInputComponent* PlayerInputCom
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Move, this, &ThisClass::Input_Move, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Look, this, &ThisClass::Input_Look, /*bLogIfNotFound=*/ false);
 
+#if COMPILE_GAMEPLAY_CONTAINERS
+			
 			// Bind Hotbar Input
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_1, this, &ThisClass::Input_Hotbar_1, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_2, this, &ThisClass::Input_Hotbar_2, /*bLogIfNotFound=*/ false);
@@ -451,6 +452,9 @@ void AUnifyCharacter::InitializePlayerInput(UUnifyInputComponent* PlayerInputCom
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_4, this, &ThisClass::Input_Hotbar_4, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_5, this, &ThisClass::Input_Hotbar_5, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_6, this, &ThisClass::Input_Hotbar_6, /*bLogIfNotFound=*/ false);
+
+#endif
+			
 		}
 	}
 }

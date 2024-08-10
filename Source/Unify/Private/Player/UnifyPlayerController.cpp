@@ -11,6 +11,16 @@
 #include "AbilitySystemGlobals.h"
 #include "UnifyLogging.h"
 
+#if COMPILE_GAMEPLAY_CONTAINERS
+#include "Core/Inventory/InventoryComponent.h"
+#include "Core/Equipment/EquipmentComponent.h"
+#include "Core/Hotbar/HotbarComponent.h"
+#endif
+
+#if COMPILE_GAMEPLAY_INTERACTION
+#include "Core/GameplayInteractionComponent.h"
+#endif
+
 AUnifyPlayerController::AUnifyPlayerController()
 {
 	// Required for aiming with the player controller and using its transform
@@ -104,10 +114,34 @@ UUnifyAbilitySystemComponent* AUnifyPlayerController::GetUnifyAbilitySystemCompo
 
 #if COMPILE_GAMEPLAY_CONTAINERS
 
-UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent() const
+TArray<UGameplayContainerComponent*> AUnifyPlayerController::GetGameplayContainers()
 {
-	return InteractionComponent;
+	TArray<UGameplayContainerComponent*> FoundContainers;
+
+	FoundContainers.AddUnique(InventoryComponent);
+	FoundContainers.AddUnique(HotbarComponent);
+	
+	return FoundContainers;
 }
+
+UInventoryComponent* AUnifyPlayerController::GetInventoryComponent()
+{
+	return InventoryComponent;
+}
+
+UHotbarComponent* AUnifyPlayerController::GetHotbarComponent()
+{
+	return HotbarComponent;
+}
+
+UEquipmentComponent* AUnifyPlayerController::GetEquipmentComponent()
+{
+	return Cast<AUnifyCharacter>(GetPawn())->GetEquipmentComponent();
+}
+
+#endif
+
+#if COMPILE_GAMEPLAY_CONTAINERS
 
 UInventoryComponent* AUnifyPlayerController::GetInventoryComponent() const
 {
