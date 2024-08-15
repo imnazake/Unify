@@ -10,7 +10,7 @@ A demo project showcasing the seamless integration of my plugins within Unreal E
 
 ## Supported Engine Versions
 
-5.3 or higher
+Currently 5.3 or higher
 
 ## Supported Platforms
 
