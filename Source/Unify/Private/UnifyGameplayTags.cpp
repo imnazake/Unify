@@ -81,7 +81,7 @@ void FUnifyGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(Gameplay_MovementStopped, "Gameplay.MovementStopped", "Movement stopped.");
 	
 	AddTag(SetByCaller_Damage, "SetByCaller.Damage", "SetByCaller tag used by damage gameplay effects.");
-	AddTag(SetByCaller_Heal, "SetByCaller.Heal", "SetByCaller tag used by healing gameplay effects.");
+	AddTag(SetByCaller_Healing, "SetByCaller.Healing", "SetByCaller tag used by healing gameplay effects.");
 
 	AddTag(Cheat_GodMode, "Cheat.GodMode", "GodMode cheat is active on the owner.");
 

@@ -2,12 +2,13 @@
 
 #pragma once
 
+#include "Delegates/Delegate.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
+#include "Messaging/CommonMessagingSubsystem.h"
+#include "UObject/Object.h"
+#include "UObject/UObjectGlobals.h"
 
-#include "UObject/ObjectPtr.h"
 #include "AsyncAction_ShowConfirmation.generated.h"
-
-enum class ECommonMessagingResult : uint8;
 
 class FText;
 class UCommonGameDialogDescriptor;

@@ -3,13 +3,15 @@
 #include "LoadingScreenManager.h"
 
 #include "HAL/ThreadHeartBeat.h"
+#include "ProfilingDebugging/CsvProfiler.h"
 
 #include "Engine/GameInstance.h"
 #include "Engine/GameViewportClient.h"
+#include "Engine/World.h"
 #include "Engine/Engine.h"
+#include "Engine/LocalPlayer.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameFramework/WorldSettings.h"
-#include "Misc/CommandLine.h"
 #include "Misc/ConfigCacheIni.h"
 
 #include "LoadingProcessInterface.h"
@@ -17,7 +19,6 @@
 #include "Framework/Application/IInputProcessor.h"
 #include "Framework/Application/SlateApplication.h"
 
-#include "PreLoadScreen.h"
 #include "PreLoadScreenManager.h"
 
 #include "ShaderPipelineCache.h"

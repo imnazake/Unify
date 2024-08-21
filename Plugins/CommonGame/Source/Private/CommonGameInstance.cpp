@@ -6,11 +6,23 @@
 #include "CommonSessionSubsystem.h"
 #include "CommonUISettings.h"
 #include "CommonUserSubsystem.h"
+#include "Containers/UnrealString.h"
+#include "Delegates/Delegate.h"
+#include "Engine/LocalPlayer.h"
 #include "GameUIManagerSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "ICommonUIModule.h"
+#include "Internationalization/Text.h"
 #include "LogCommonGame.h"
+#include "Logging/LogCategory.h"
+#include "Logging/LogMacros.h"
 #include "Messaging/CommonGameDialog.h"
 #include "Messaging/CommonMessagingSubsystem.h"
+#include "Misc/AssertionMacros.h"
+#include "NativeGameplayTags.h"
+#include "Templates/Casts.h"
+#include "Trace/Detail/Channel.h"
+#include "UObject/WeakObjectPtr.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CommonGameInstance)
 
@@ -42,11 +54,6 @@ void UCommonGameInstance::HandlePrivilegeChanged(const UCommonUserInfo* UserInfo
 		// TODO: Games can do something specific in subclass
 		// ReturnToMainMenu();
 	}
-}
-
-void UCommonGameInstance::HandlerUserInitialized(const UCommonUserInfo* UserInfo, bool bSuccess, FText Error, ECommonUserPrivilege RequestedPrivilege, ECommonUserOnlineContext OnlineContext)
-{
-	// Subclasses can override this
 }
 
 int32 UCommonGameInstance::AddLocalPlayer(ULocalPlayer* NewPlayer, FPlatformUserId UserId)
@@ -92,7 +99,6 @@ void UCommonGameInstance::Init()
 		UserSubsystem->SetTraitTags(PlatformTraits);
 		UserSubsystem->OnHandleSystemMessage.AddDynamic(this, &UCommonGameInstance::HandleSystemMessage);
 		UserSubsystem->OnUserPrivilegeChanged.AddDynamic(this, &UCommonGameInstance::HandlePrivilegeChanged);
-		UserSubsystem->OnUserInitializeComplete.AddDynamic(this, &UCommonGameInstance::HandlerUserInitialized);
 	}
 
 	UCommonSessionSubsystem* SessionSubsystem = GetSubsystem<UCommonSessionSubsystem>();

@@ -2,7 +2,10 @@
 
 #pragma once
 
+#include "Delegates/Delegate.h"
+#include "HAL/Platform.h"
 #include "Subsystems/LocalPlayerSubsystem.h"
+#include "UObject/UObjectGlobals.h"
 
 #include "CommonMessagingSubsystem.generated.h"
 

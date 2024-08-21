@@ -2,7 +2,9 @@
 
 #pragma once
 
+#include "Engine/EngineTypes.h"
 #include "GameFramework/PlayerController.h"
+#include "UObject/UObjectGlobals.h"
 
 #include "ModularPlayerController.generated.h"
 

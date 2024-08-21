@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.3",
+	"EngineAssociation": "5.1",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -148,6 +148,8 @@
 	],
 	"TargetPlatforms": [
 		"Windows",
-		"HoloLens"
+		"Linux",
+		"Mac",
+		"LinuxArm64"
 	]
 }

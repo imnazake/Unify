@@ -3,15 +3,35 @@
 #include "CommonPlayerInputKey.h"
 
 #include "CommonInputSubsystem.h"
-#include "CommonInputTypeEnum.h"
 #include "CommonLocalPlayer.h"
 #include "CommonPlayerController.h"
+#include "Components/SlateWrapperTypes.h"
+#include "Containers/UnrealString.h"
+#include "Delegates/Delegate.h"
+#include "Engine/World.h"
 #include "Fonts/FontMeasure.h"
 #include "Framework/Application/SlateApplication.h"
+#include "Internationalization/Internationalization.h"
+#include "Layout/Geometry.h"
+#include "Logging/LogCategory.h"
+#include "Logging/LogMacros.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Materials/MaterialInterface.h"
+#include "Math/Color.h"
+#include "Math/UnrealMathSSE.h"
+#include "Misc/AssertionMacros.h"
+#include "Rendering/DrawElements.h"
+#include "Rendering/RenderingCommon.h"
 #include "Rendering/SlateRenderer.h"
+#include "Styling/SlateBrush.h"
+#include "Styling/WidgetStyle.h"
+#include "Templates/Casts.h"
+#include "Templates/SharedPointer.h"
 #include "TimerManager.h"
+#include "Trace/Detail/Channel.h"
+#include "UObject/UnrealNames.h"
+#include "Widgets/InvalidateWidgetReason.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CommonPlayerInputKey)
 
@@ -67,7 +87,7 @@ struct FSlateDrawUtil
 		(
 			ElementList,
 			InLayer,
-			InAllottedGeometry.ToPaintGeometry(FinalSize, FSlateLayoutTransform(Offset)),
+			InAllottedGeometry.ToPaintGeometry(Offset, FinalSize),
 			InBrush,
 			ESlateDrawEffect::None,
 			InTint
@@ -195,7 +215,7 @@ int32 UCommonPlayerInputKey::NativePaint(const FPaintArgs& Args, const FGeometry
 		(
 			OutDrawElements,
 			++MaxLayer,
-			AllottedGeometry.ToPaintGeometry(FrameSize, FSlateLayoutTransform(FrameOffset)),
+			AllottedGeometry.ToPaintGeometry(FrameOffset, FrameSize),
 			&KeyBindTextBorder,
 			ESlateDrawEffect::None,
 			FLinearColor(InWidgetStyle.GetColorAndOpacityTint() * KeyBindTextBorder.GetTint(InWidgetStyle))
