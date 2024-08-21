@@ -2,18 +2,7 @@
 
 #pragma once
 
-#include "Containers/Array.h"
-#include "Containers/Map.h"
 #include "Containers/Ticker.h"
-#include "Delegates/Delegate.h"
-#include "HAL/Platform.h"
-#include "Templates/Function.h"
-#include "Templates/RemoveReference.h"
-#include "Templates/SharedPointer.h"
-#include "Templates/UniquePtr.h"
-#include "Templates/UnrealTemplate.h"
-#include "UObject/Object.h"
-#include "UObject/SoftObjectPath.h"
 #include "UObject/SoftObjectPtr.h"
 
 class FAsyncCondition;

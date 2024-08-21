@@ -2,6 +2,10 @@
 
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "Engine/Engine.h"
+#include "Engine/GameInstance.h"
+#include "Engine/World.h"
+#include "UObject/ScriptMacros.h"
+#include "UObject/Stack.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(GameplayMessageSubsystem)
 

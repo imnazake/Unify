@@ -2,21 +2,10 @@
 
 #pragma once
 
-#include "Containers/Array.h"
-#include "Containers/Map.h"
-#include "Delegates/IDelegateInstance.h"
 #include "GameFramework/GameplayMessageTypes2.h"
 #include "GameplayTagContainer.h"
-#include "HAL/Platform.h"
-#include "Logging/LogMacros.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Templates/Function.h"
-#include "Templates/UnrealTemplate.h"
-#include "UObject/Class.h"
-#include "UObject/Object.h"
-#include "UObject/UObjectGlobals.h"
 #include "UObject/WeakObjectPtr.h"
-#include "UObject/WeakObjectPtrTemplates.h"
 
 #include "GameplayMessageSubsystem.generated.h"
 
