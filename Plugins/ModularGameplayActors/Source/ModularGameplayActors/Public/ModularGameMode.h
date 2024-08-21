@@ -3,6 +3,8 @@
 #pragma once
 
 #include "GameFramework/GameMode.h"
+#include "GameFramework/GameModeBase.h"
+#include "UObject/UObjectGlobals.h"
 
 #include "ModularGameMode.generated.h"
 

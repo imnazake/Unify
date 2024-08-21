@@ -4,6 +4,10 @@
 
 #include "CommonActivatableWidget.h"
 #include "CommonMessagingSubsystem.h"
+#include "Containers/Array.h"
+#include "Internationalization/Text.h"
+#include "UObject/Object.h"
+#include "UObject/UObjectGlobals.h"
 
 #include "CommonGameDialog.generated.h"
 

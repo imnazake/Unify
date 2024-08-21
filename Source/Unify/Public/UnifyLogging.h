@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Logging/LogMacros.h"
+
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION > 1
 #include "Logging/StructuredLog.h"
+#endif
 
 #define THIS_FUNCTION FString(__FUNCTION__)
 #define THIS_OBJECT_NAME GetNameSafe(this)

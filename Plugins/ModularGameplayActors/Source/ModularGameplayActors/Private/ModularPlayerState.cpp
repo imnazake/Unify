@@ -4,6 +4,12 @@
 
 #include "Components/GameFrameworkComponentManager.h"
 #include "Components/PlayerStateComponent.h"
+#include "Containers/Array.h"
+#include "Containers/Set.h"
+#include "GameFramework/Actor.h"
+#include "Templates/Casts.h"
+#include "UObject/Object.h"
+#include "UObject/UObjectHash.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(ModularPlayerState)
 

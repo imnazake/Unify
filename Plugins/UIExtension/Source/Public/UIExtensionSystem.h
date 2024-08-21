@@ -2,15 +2,23 @@
 
 #pragma once
 
+#include "Containers/Array.h"
+#include "Containers/Map.h"
+#include "CoreTypes.h"
+#include "Delegates/Delegate.h"
 #include "GameplayTagContainer.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "Templates/SharedPointer.h"
+#include "Templates/SubclassOf.h"
+#include "Templates/TypeHash.h"
+#include "UObject/Class.h"
+#include "UObject/Object.h"
+#include "UObject/UObjectGlobals.h"
+#include "UObject/WeakObjectPtr.h"
+#include "UObject/WeakObjectPtrTemplates.h"
 
 #include "UIExtensionSystem.generated.h"
-
-class UUIExtensionSubsystem;
-struct FUIExtensionRequest;
-template <typename T> class TSubclassOf;
 
 class FSubsystemCollectionBase;
 class UUserWidget;
@@ -50,7 +58,7 @@ public:
 	int32 Priority = INDEX_NONE;
 	TWeakObjectPtr<UObject> ContextObject;
 	//Kept alive by UUIExtensionSubsystem::AddReferencedObjects
-	TObjectPtr<UObject> Data = nullptr;
+	UObject* Data = nullptr;
 };
 
 /**
@@ -62,7 +70,7 @@ public:
 	FGameplayTag ExtensionPointTag;
 	TWeakObjectPtr<UObject> ContextObject;
 	EUIExtensionPointMatch ExtensionPointTagMatchType = EUIExtensionPointMatch::ExactMatch;
-	TArray<TObjectPtr<UClass>> AllowedDataClasses;
+	TArray<UClass*> AllowedDataClasses;
 	FExtendExtensionPointDelegate Callback;
 
 	// Tests if the extension and the extension point match up, if they do then this extension point should learn

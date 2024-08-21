@@ -53,7 +53,7 @@ struct UNIFY_API FUnifyGameplayTags
 	FGameplayTag Gameplay_MovementStopped;
 
 	FGameplayTag SetByCaller_Damage;
-	FGameplayTag SetByCaller_Heal;
+	FGameplayTag SetByCaller_Healing;
 
 	FGameplayTag Cheat_GodMode;
 

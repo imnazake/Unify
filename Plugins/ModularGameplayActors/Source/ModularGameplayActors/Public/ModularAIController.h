@@ -3,6 +3,8 @@
 #pragma once
 
 #include "AIController.h"
+#include "Engine/EngineTypes.h"
+#include "UObject/UObjectGlobals.h"
 
 #include "ModularAIController.generated.h"
 

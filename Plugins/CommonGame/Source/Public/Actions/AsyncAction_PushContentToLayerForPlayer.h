@@ -2,9 +2,13 @@
 
 #pragma once
 
+#include "Delegates/Delegate.h"
 #include "Engine/CancellableAsyncAction.h"
 #include "GameplayTagContainer.h"
+#include "Templates/SharedPointer.h"
 #include "UObject/SoftObjectPtr.h"
+#include "UObject/UObjectGlobals.h"
+#include "UObject/WeakObjectPtrTemplates.h"
 
 #include "AsyncAction_PushContentToLayerForPlayer.generated.h"
 

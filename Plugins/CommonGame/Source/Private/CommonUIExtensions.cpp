@@ -2,13 +2,21 @@
 
 #include "CommonUIExtensions.h"
 
+#include "Blueprint/UserWidget.h"
+#include "CommonActivatableWidget.h"
+#include "CommonInputBaseTypes.h"
 #include "CommonInputSubsystem.h"
-#include "CommonInputTypeEnum.h"
 #include "CommonLocalPlayer.h"
+#include "Delegates/Delegate.h"
 #include "Engine/GameInstance.h"
+#include "Engine/LocalPlayer.h"
+#include "GameFramework/PlayerController.h"
 #include "GameUIManagerSubsystem.h"
 #include "GameUIPolicy.h"
+#include "GameplayTagContainer.h"
 #include "PrimaryGameLayout.h"
+#include "Templates/Casts.h"
+#include "UObject/UnrealNames.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CommonUIExtensions)
@@ -54,10 +62,11 @@ bool UCommonUIExtensions::IsOwningPlayerUsingGamepad(const UUserWidget* WidgetCo
 
 UCommonActivatableWidget* UCommonUIExtensions::PushContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, FGameplayTag LayerName, TSubclassOf<UCommonActivatableWidget> WidgetClass)
 {
-	if (!ensure(LocalPlayer) || !ensure(WidgetClass != nullptr))
-	{
-		return nullptr;
-	}
+	//if (!WidgetClass)
+	//{
+	//	//UE_LOG ERROR
+	//	return nullptr;
+	//}
 
 	if (UGameUIManagerSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UGameUIManagerSubsystem>())
 	{
@@ -75,11 +84,6 @@ UCommonActivatableWidget* UCommonUIExtensions::PushContentToLayer_ForPlayer(cons
 
 void UCommonUIExtensions::PushStreamedContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> WidgetClass)
 {
-	if (!ensure(LocalPlayer) || !ensure(!WidgetClass.IsNull()))
-	{
-		return;
-	}
-
 	if (UGameUIManagerSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UGameUIManagerSubsystem>())
 	{
 		if (UGameUIPolicy* Policy = UIManager->GetCurrentUIPolicy())
@@ -95,12 +99,6 @@ void UCommonUIExtensions::PushStreamedContentToLayer_ForPlayer(const ULocalPlaye
 
 void UCommonUIExtensions::PopContentFromLayer(UCommonActivatableWidget* ActivatableWidget)
 {
-	if (!ActivatableWidget)
-	{
-		// Ignore request to pop an already deleted widget
-		return;
-	}
-
 	if (const ULocalPlayer* LocalPlayer = ActivatableWidget->GetOwningLocalPlayer())
 	{
 		if (const UGameUIManagerSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UGameUIManagerSubsystem>())

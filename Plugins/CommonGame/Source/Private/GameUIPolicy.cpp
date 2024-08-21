@@ -1,13 +1,14 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "GameUIPolicy.h"
-#include "Engine/GameInstance.h"
-#include "Framework/Application/SlateApplication.h"
+#include "CommonActivatableWidget.h"
+#include "Engine/LocalPlayer.h"
 #include "GameUIManagerSubsystem.h"
 #include "CommonLocalPlayer.h"
 #include "PrimaryGameLayout.h"
 #include "Engine/Engine.h"
 #include "LogCommonGame.h"
+#include "Widgets/CommonActivatableWidgetContainer.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(GameUIPolicy)
 

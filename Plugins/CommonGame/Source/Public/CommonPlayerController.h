@@ -3,6 +3,7 @@
 #pragma once
 
 #include "ModularPlayerController.h"
+#include "UObject/UObjectGlobals.h"
 
 #include "CommonPlayerController.generated.h"
 
