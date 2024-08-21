@@ -2,16 +2,9 @@
 
 #pragma once
 
-#include "Delegates/Delegate.h"
 #include "Engine/CancellableAsyncAction.h"
 #include "GameplayMessageSubsystem.h"
 #include "GameplayMessageTypes2.h"
-#include "GameplayTagContainer.h"
-#include "HAL/Platform.h"
-#include "UObject/Object.h"
-#include "UObject/UObjectGlobals.h"
-#include "UObject/WeakObjectPtr.h"
-#include "UObject/WeakObjectPtrTemplates.h"
 
 #include "AsyncAction_ListenForGameplayMessage.generated.h"
 

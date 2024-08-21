@@ -71,7 +71,7 @@ UObject* UUnifyAssetManager::SynchronousLoadAsset(const FSoftObjectPath& AssetPa
 			LogTimePtr = MakeUnique<FScopeLogTime>(*FString::Printf(TEXT("Synchronously loaded asset [%s]"), *AssetPath.ToString()), nullptr, FScopeLogTime::ScopeLog_Seconds);
 		}*/
 
-#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION > 1
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 3
 		if (IsInitialized())
 		{
 			return GetStreamableManager().LoadSynchronous(AssetPath, false);

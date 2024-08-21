@@ -5,14 +5,8 @@
 #include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
-#include "GameFramework/GameplayMessageTypes2.h"
-#include "Misc/AssertionMacros.h"
-#include "UObject/Class.h"
-#include "UObject/Field.h"
-#include "UObject/Script.h"
 #include "UObject/ScriptMacros.h"
 #include "UObject/Stack.h"
-#include "UObject/UnrealType.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AsyncAction_ListenForGameplayMessage)
 

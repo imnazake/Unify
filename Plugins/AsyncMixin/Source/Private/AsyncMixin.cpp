@@ -2,19 +2,9 @@
 
 #include "AsyncMixin.h"
 
-#include "Containers/Ticker.h"
-#include "Containers/UnrealString.h"
-#include "CoreGlobals.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
-#include "Logging/LogCategory.h"
-#include "Logging/LogMacros.h"
-#include "Misc/AssertionMacros.h"
 #include "Stats/Stats.h"
-#include "Stats/Stats2.h"
-#include "Trace/Detail/Channel.h"
-#include "UObject/NameTypes.h"
-#include "UObject/PrimaryAssetId.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogAsyncMixin, Log, All);
 
@@ -266,8 +256,8 @@ void FAsyncMixin::FLoadingState::AsyncPreloadPrimaryAssetsAndBundles(const TArra
 {
 	UE_LOG(LogAsyncMixin, Verbose, TEXT("[0x%X]  AsyncPreload Assets [%s], Bundles[%s]"),
 		this,
-		*FString::JoinBy(AssetIds, TEXT(", "), [](const FPrimaryAssetId& AssetId) { return *AssetId.ToString(); }),
-		*FString::JoinBy(LoadBundles, TEXT(", "), [](const FName& LoadBundle) { return *LoadBundle.ToString(); })
+		*FString::JoinBy(AssetIds, TEXT(", "), [](const FPrimaryAssetId& AssetId) { return AssetId.ToString(); }),
+		*FString::JoinBy(LoadBundles, TEXT(", "), [](const FName& LoadBundle) { return LoadBundle.ToString(); })
 	);
 
 	TSharedPtr<FStreamableHandle> StreamingHandle;
