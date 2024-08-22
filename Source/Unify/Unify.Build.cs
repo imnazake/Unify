@@ -10,6 +10,12 @@ public class Unify : ModuleRules
 		
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
+			// "GameplayContainers",
+			// "GameplayInteraction",
+		});
+		
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
 			"Core", 
 			"Engine", 
 			"AIModule",

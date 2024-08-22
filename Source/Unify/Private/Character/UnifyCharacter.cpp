@@ -58,8 +58,16 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	ThirdPersonCamera->bUsePawnControlRotation = false;
 	
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
-	FirstPersonCamera->SetupAttachment(RootComponent, TEXT("head"));
+	FirstPersonCamera->SetupAttachment(RootComponent);
 	FirstPersonCamera->bUsePawnControlRotation = true;
+
+	FirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FirstPersonMesh"));
+	FirstPersonMesh->SetupAttachment(FirstPersonCamera);
+	FirstPersonMesh->SetOwnerNoSee(false);
+	FirstPersonMesh->SetOnlyOwnerSee(true);
+	FirstPersonMesh->bCastDynamicShadow = false;
+	FirstPersonMesh->bCastHiddenShadow = false;
+	FirstPersonMesh->CastShadow = false;
 	
 	Head = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Head"));
 	Head->SetupAttachment(GetMesh());
@@ -69,6 +77,22 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	Head->bCastHiddenShadow = false;
 	Head->CastShadow = false;
 
+	Torso = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Torso"));
+	Torso->SetupAttachment(GetMesh());
+	Torso->SetOwnerNoSee(false);
+	Torso->SetOnlyOwnerSee(true);
+	Torso->bCastDynamicShadow = false;
+	Torso->bCastHiddenShadow = false;
+	Torso->CastShadow = false;
+	
+	Legs = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Legs"));
+	Legs->SetupAttachment(GetMesh());
+	Legs->SetOwnerNoSee(false);
+	Legs->SetOnlyOwnerSee(true);
+	Legs->bCastDynamicShadow = false;
+	Legs->bCastHiddenShadow = false;
+	Legs->CastShadow = false;
+
 	Hands = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Hands"));
 	Hands->SetupAttachment(GetMesh());
 	Hands->SetOwnerNoSee(false);
@@ -77,21 +101,13 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	Hands->bCastHiddenShadow = false;
 	Hands->CastShadow = false;
 
-	Body = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Body"));
-	Body->SetupAttachment(GetMesh());
-	Body->SetOwnerNoSee(false);
-	Body->SetOnlyOwnerSee(true);
-	Body->bCastDynamicShadow = false;
-	Body->bCastHiddenShadow = false;
-	Body->CastShadow = false;
-
-	Legs = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Legs"));
-	Legs->SetupAttachment(GetMesh());
-	Legs->SetOwnerNoSee(false);
-	Legs->SetOnlyOwnerSee(true);
-	Legs->bCastDynamicShadow = false;
-	Legs->bCastHiddenShadow = false;
-	Legs->CastShadow = false;
+	Feet = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Feet"));
+	Feet->SetupAttachment(GetMesh());
+	Feet->SetOwnerNoSee(false);
+	Feet->SetOnlyOwnerSee(true);
+	Feet->bCastDynamicShadow = false;
+	Feet->bCastHiddenShadow = false;
+	Feet->CastShadow = false;
 	
 	GetMesh()->CastShadow = true;
 	GetMesh()->bCastDynamicShadow = true;
@@ -407,11 +423,6 @@ UAbilitySystemComponent* AUnifyCharacter::GetAbilitySystemComponent() const
 
 	return nullptr;
 }
-
-/*UEquipmentComponent* AUnifyCharacter::GetEquipmentComponent() const
-{
-	return EquipmentComponent;
-}*/
 
 UUnifyAbilitySystemComponent* AUnifyCharacter::GetUnifyAbilitySystemComponent() const
 {

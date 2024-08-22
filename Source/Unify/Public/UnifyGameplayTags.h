@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Unify/Unify.h"
 #include "GameplayTagContainer.h"
 
 /**
@@ -37,12 +38,16 @@ struct UNIFY_API FUnifyGameplayTags
 	FGameplayTag Input_Jump;
 	FGameplayTag Input_Crouch;
 
+#if COMPILE_GAMEPLAY_CONTAINERS
+	
 	FGameplayTag Input_Hotbar_1;
 	FGameplayTag Input_Hotbar_2;
 	FGameplayTag Input_Hotbar_3;
 	FGameplayTag Input_Hotbar_4;
 	FGameplayTag Input_Hotbar_5;
 	FGameplayTag Input_Hotbar_6;
+
+#endif
 
 	FGameplayTag Input_OpenInventory;
 
