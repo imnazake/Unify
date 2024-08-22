@@ -1,6 +1,6 @@
 # Unify
 
-A demo project showcasing the seamless integration of my plugins within Unreal Engine projects. It features various systems such as the Gameplay Ability System and Common UI, providing a solid foundation for developers to build upon.
+This demo project demonstrates the integration of my plugins with Unreal Engine, featuring systems like the Gameplay Ability System and Common UI, providing a strong foundation for developers.
 
 ## Getting Started
 
