@@ -131,16 +131,22 @@ protected:
 #endif
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
+	TObjectPtr<USkeletalMeshComponent> FirstPersonMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
 	TObjectPtr<USkeletalMeshComponent> Head;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
+	TObjectPtr<USkeletalMeshComponent> Torso;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
+	TObjectPtr<USkeletalMeshComponent> Legs;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
 	TObjectPtr<USkeletalMeshComponent> Hands;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
-	TObjectPtr<USkeletalMeshComponent> Body;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
-	TObjectPtr<USkeletalMeshComponent> Legs;
+	TObjectPtr<USkeletalMeshComponent> Feet;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Camera")
 	TObjectPtr<UCameraComponent> FirstPersonCamera;

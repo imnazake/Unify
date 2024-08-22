@@ -76,10 +76,8 @@ UObject* UUnifyAssetManager::SynchronousLoadAsset(const FSoftObjectPath& AssetPa
 		{
 			return GetStreamableManager().LoadSynchronous(AssetPath, false);
 		}
-#else
-		return GetStreamableManager().LoadSynchronous(AssetPath, false);
 #endif
-
+		
 		// Use LoadObject if asset manager isn't ready yet.
 		return AssetPath.TryLoad();
 	}

@@ -4,11 +4,6 @@
 #include "AbilitySystem/UnifyAbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
-UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_Damage, "Gameplay.Damage");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_Damage_Immunity, "Gameplay.Damage.Immunity");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_Damage_SelfDestruct, "Gameplay.Damage.SelfDestruct");
-UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_Damage_FellOutOfWorld, "Gameplay.Damage.FellOutOfWorld");
-
 UUnifyHealthSet::UUnifyHealthSet() : Health(100.0f), MaxHealth(100.0f)
 {
 }

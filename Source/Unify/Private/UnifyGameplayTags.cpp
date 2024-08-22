@@ -65,12 +65,16 @@ void FUnifyGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(Input_Jump, "Input.Jump", "Jump input.");
 	AddTag(Input_Crouch, "Input.Crouch", "Crouch input.");
 
+#if COMPILE_GAMEPLAY_CONTAINERS
+	
 	AddTag(Input_Hotbar_1, "Input.Hotbar.1", "Toggle hotbar slot 1.");
 	AddTag(Input_Hotbar_2, "Input.Hotbar.2", "Toggle hotbar slot 2.");
 	AddTag(Input_Hotbar_3, "Input.Hotbar.3", "Toggle hotbar slot 3.");
 	AddTag(Input_Hotbar_4, "Input.Hotbar.4", "Toggle hotbar slot 4.");
 	AddTag(Input_Hotbar_5, "Input.Hotbar.5", "Toggle hotbar slot 5.");
 	AddTag(Input_Hotbar_6, "Input.Hotbar.6", "Toggle hotbar slot 6.");
+	
+#endif
 
 	AddTag(Input_OpenInventory, "Input.OpenInventory", "Open inventory menu input.");
 	
