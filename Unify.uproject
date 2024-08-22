@@ -58,11 +58,6 @@
 		{
 			"Name": "AsyncMixin",
 			"Enabled": true
-		},
-		{
-			"Name": "GameplayInteraction",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/77d0d5fecc95470b8446ccb2bcd5cc13"
 		}
 	],
 	"TargetPlatforms": [
@@ -70,7 +65,6 @@
 		"Win64",
 		"Linux",
 		"LinuxArm64",
-		"Mac",
-		"HoloLens"
+		"Mac"
 	]
 }
