@@ -50,5 +50,6 @@ public class Unify : ModuleRules
 		PublicDefinitions.Add("SHIPPING_DRAW_DEBUG_ERROR=1");
 
 		SetupGameplayDebuggerSupport(Target);
+		SetupIrisSupport(Target);
 	}
 }
