@@ -7,6 +7,12 @@
 #include "UnifyActivatableWidget.generated.h"
 
 struct FUIInputConfig;
+struct FUIActionBindingHandle;
+
+/**
+ * FInputActionExecutedDelegate
+ */
+DECLARE_DYNAMIC_DELEGATE_OneParam(FInputActionExecutedDelegate, FName, ActionName);
 
 /**
  * EUnifyWidgetInputMode
@@ -18,6 +24,18 @@ enum class EUnifyWidgetInputMode : uint8
 	GameAndMenu,
 	Game,
 	Menu
+};
+
+/**
+ * FUnifyInputActionBindingHandle
+ */
+USTRUCT(BlueprintType)
+struct FUnifyInputActionBindingHandle
+{
+	GENERATED_BODY()
+
+	//
+	FUIActionBindingHandle Handle;
 };
 
 /**
@@ -36,6 +54,15 @@ public:
 	virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
 	//~UCommonActivatableWidget Interface
 
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void RegisterBinding(FDataTableRowHandle InputAction, const FInputActionExecutedDelegate& Callback, FUnifyInputActionBindingHandle& BindingHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void UnregisterBinding(FUnifyInputActionBindingHandle BindingHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void UnregisterAllBindings();
+
 protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
@@ -44,5 +71,9 @@ protected:
 	/** The desired mouse behavior when the game gets input. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
 	EMouseCaptureMode GameMouseCaptureMode;
+
+private:
+
+	TArray<FUIActionBindingHandle> BindingHandles;
 	
 };
