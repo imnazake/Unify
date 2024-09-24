@@ -32,6 +32,7 @@ AUnifyPlayerController::AUnifyPlayerController()
 	
 	HotbarComponent = CreateDefaultSubobject<UHotbarComponent>(TEXT("HotbarComponent"));
 	HotbarComponent->SetIsReplicated(true);
+	
 #endif
 
 #if COMPILE_GAMEPLAY_INTERACTION
@@ -136,7 +137,12 @@ UHotbarComponent* AUnifyPlayerController::GetHotbarComponent()
 
 UEquipmentComponent* AUnifyPlayerController::GetEquipmentComponent()
 {
-	return Cast<AUnifyCharacter>(GetPawn())->GetEquipmentComponent();
+	if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(GetPawn()))
+	{
+		return MyCharacter->GetEquipmentComponent();
+	}
+
+	return nullptr;
 }
 
 #endif
@@ -189,6 +195,7 @@ void AUnifyPlayerController::OnUnPossess()
 {
 	// Make sure the pawn that is being unpossessed doesn't remain our ASC's avatar actor
 	// (e.g. driving vehicles or riding mounts and stuff like that while the asc is on the player state but using the possessed pawn as avatar)
+	
 	if (const APawn* PawnBeingUnpossessed = GetPawn())
 	{
 		if (UAbilitySystemComponent* ASC = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(PlayerState))
