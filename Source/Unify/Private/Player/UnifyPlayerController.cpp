@@ -32,6 +32,7 @@ AUnifyPlayerController::AUnifyPlayerController()
 	
 	HotbarComponent = CreateDefaultSubobject<UHotbarComponent>(TEXT("HotbarComponent"));
 	HotbarComponent->SetIsReplicated(true);
+	
 #endif
 
 #if COMPILE_GAMEPLAY_INTERACTION
@@ -136,7 +137,12 @@ UHotbarComponent* AUnifyPlayerController::GetHotbarComponent()
 
 UEquipmentComponent* AUnifyPlayerController::GetEquipmentComponent()
 {
-	return Cast<AUnifyCharacter>(GetPawn())->GetEquipmentComponent();
+	if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(GetPawn()))
+	{
+		return MyCharacter->GetEquipmentComponent();
+	}
+
+	return nullptr;
 }
 
 #endif
