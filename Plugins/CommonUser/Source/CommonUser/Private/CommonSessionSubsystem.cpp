@@ -207,7 +207,7 @@ public:
 		QuerySettings.Set(SETTING_ONLINESUBSYSTEM_VERSION, true, EOnlineComparisonOp::Equals);
 		if (InSearchRequest->bUseLobbies)
 		{
-			QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
+			//QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
 			QuerySettings.Set(SEARCH_LOBBIES, true, EOnlineComparisonOp::Equals);
 		}
 	}
