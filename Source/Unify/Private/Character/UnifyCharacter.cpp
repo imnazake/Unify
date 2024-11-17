@@ -29,7 +29,7 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	PrimaryActorTick.bCanEverTick = false;
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
-	NetCullDistanceSquared = 900000000.0f;
+	SetNetCullDistanceSquared(900000000.0f);
 	
 	UUnifyCharacterMovementComponent* MovementComponent = CastChecked<UUnifyCharacterMovementComponent>(GetCharacterMovement());
 	MovementComponent->GravityScale = 1.0f;
