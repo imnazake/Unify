@@ -10,6 +10,7 @@
 
 #if COMPILE_GAMEPLAY_CONTAINERS
 #include "Core/IGameplayContainerInterface.h"
+#include "Core/Users/IGameplayContainerUserInterface.h"
 #endif
 
 #if COMPILE_GAMEPLAY_INTERACTION
@@ -34,6 +35,7 @@ class UNIFY_API AUnifyPlayerController : public ACommonPlayerController, public 
 
 #if COMPILE_GAMEPLAY_CONTAINERS
 	, public IGameplayContainerInterface
+	, public IGameplayContainerUserInterface
 #endif
 
 #if COMPILE_GAMEPLAY_INTERACTION
@@ -84,16 +86,27 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Unify|PlayerController")
 	UUnifyAbilitySystemComponent* GetUnifyAbilitySystemComponent() const;
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+//#if COMPILE_GAMEPLAY_CONTAINERS
 
 	//~IGameplayContainerInterface
 	virtual TArray<UGameplayContainerComponent*> GetGameplayContainers() override;
 	virtual UInventoryComponent* GetInventoryComponent() override;
 	virtual UHotbarComponent* GetHotbarComponent() override;
 	virtual UEquipmentComponent* GetEquipmentComponent() override;
+
+	UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
+	virtual UGameplayContainerComponent* GetActiveContainerComponent() override;
 	//~IGameplayContainerInterface
 
-#endif
+	//~IGameplayContainerUserInterface
+	virtual void OnContainerUserRegistered(const FGameplayContainerUser& User) override;
+	virtual void OnContainerUserUnregistered(const FGameplayContainerUser& User) override;
+	virtual void OnContainerUserInfoChanged(const FGameplayContainerUser& User) override;
+	//~IGameplayContainerUserInterface
+	
+	void SetActiveContainerComponent(UGameplayContainerComponent* NewContainer);
+
+//#endif
 
 #if COMPILE_GAMEPLAY_CONTAINERS
 	/** Uncomment this if compile gameplay containers is enabled. */
@@ -113,15 +126,19 @@ public:
 
 protected:
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+//#if COMPILE_GAMEPLAY_CONTAINERS
 	/** Uncomment this if compile gameplay containers is enabled. */
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
 	TObjectPtr<UInventoryComponent> InventoryComponent;
 
 	/** Uncomment this if compile gameplay containers is enabled. */
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
 	TObjectPtr<UHotbarComponent> HotbarComponent;
-#endif
+
+	/** Uncomment this if compile gameplay containers is enabled. */
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	TObjectPtr<UGameplayContainerComponent> ActiveContainer;
+//#endif
 
 #if COMPILE_GAMEPLAY_INTERACTION
 	/** Uncomment this if compile gameplay interaction is enabled. */

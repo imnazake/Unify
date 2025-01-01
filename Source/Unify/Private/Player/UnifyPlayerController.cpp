@@ -145,6 +145,31 @@ UEquipmentComponent* AUnifyPlayerController::GetEquipmentComponent()
 	return nullptr;
 }
 
+void AUnifyPlayerController::OnContainerUserRegistered(const FGameplayContainerUser& User)
+{
+	ActiveContainer = User.GetTargetContainer();
+}
+
+void AUnifyPlayerController::OnContainerUserUnregistered(const FGameplayContainerUser& User)
+{
+	ActiveContainer = nullptr;
+}
+
+void AUnifyPlayerController::OnContainerUserInfoChanged(const FGameplayContainerUser& User)
+{
+	ActiveContainer = User.GetTargetContainer();
+}
+
+UGameplayContainerComponent* AUnifyPlayerController::GetActiveContainerComponent()
+{
+	return ActiveContainer;
+}
+
+void AUnifyPlayerController::SetActiveContainerComponent(UGameplayContainerComponent* NewContainer)
+{
+	ActiveContainer = NewContainer;
+}
+
 #endif
 
 #if COMPILE_GAMEPLAY_CONTAINERS
@@ -167,11 +192,6 @@ void AUnifyPlayerController::OnPossess(APawn* InPawn)
 
 #if COMPILE_GAMEPLAY_CONTAINERS
 	
-	if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(InPawn))
-	{
-		MyCharacter->GetEquipmentComponent()->RegisterWithInventoryComponent(InventoryComponent);
-	}
-
 	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		HotbarComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
@@ -193,8 +213,8 @@ void AUnifyPlayerController::OnPossess(APawn* InPawn)
 
 void AUnifyPlayerController::OnUnPossess()
 {
-	// Make sure the pawn that is being unpossessed doesn't remain our ASC's avatar actor
-	// (e.g. driving vehicles or riding mounts and stuff like that while the asc is on the player state but using the possessed pawn as avatar)
+	// Make sure the pawn that is being unprocessed doesn't remain our ASC's avatar actor
+	// (e.g., driving vehicles or riding mounts and stuff like that while the asc is on the player state but using the possessed pawn as avatar)
 	
 	if (const APawn* PawnBeingUnpossessed = GetPawn())
 	{
@@ -213,16 +233,6 @@ void AUnifyPlayerController::OnUnPossess()
 void AUnifyPlayerController::AcknowledgePossession(APawn* InPawn)
 {
 	Super::AcknowledgePossession(InPawn);
-
-#if COMPILE_GAMEPLAY_CONTAINERS
-	
-	if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(InPawn))
-	{
-		MyCharacter->GetEquipmentComponent()->RegisterWithInventoryComponent(InventoryComponent);
-	}
-
-#endif
-	
 }
 
 void AUnifyPlayerController::OnRep_PlayerState()
