@@ -2,6 +2,9 @@
 
 This demo project demonstrates the integration of my plugins with Unreal Engine, featuring systems like the Gameplay Ability System and Common UI, providing a strong foundation for developers.
 
+> [!NOTE]  
+> New documentation page [here](https://imnazake.github.io/imnazake/)
+
 ## Getting Started
 
 1. Clone or download the repository.
