@@ -27,15 +27,15 @@ struct FUnifyGameplayAbilitySet
 	FUnifyGameplayAbilitySet();
 	
 	/** Gameplay ability to grant. */
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UUnifyGameplayAbility> AbilityClass;
 
 	/** Level of ability to grant. */
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 AbilityLevel;
 
 	/** Tag used to process input for the ability. */
-	UPROPERTY(EditDefaultsOnly, Meta = (Categories = "Input"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (Categories = "Input"))
 	FGameplayTag InputTag;
 };
 
@@ -126,7 +126,7 @@ public:
 
 	void GrantToAbilitySystem(UUnifyAbilitySystemComponent* AbilitySystem, FUnifyAbilitySetGrantedHandles* OutGrantedHandles, UObject* SourceObject = nullptr);
 
-protected:
+public:
 
 	/** Gameplay abilities to grant when this ability set is granted. */
 	UPROPERTY(EditDefaultsOnly, Category = "Abilities")

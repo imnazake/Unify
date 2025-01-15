@@ -13,15 +13,17 @@
 #include "UnifyGameplayTags.h"
 #include "InputMappingContext.h"
 
-#if COMPILE_GAMEPLAY_INTERACTION
-#include "Core/GameplayInteractionComponent.h"
-#endif
+/** Uncomment if you are using GameplayInteraction */
+//#include "Core/GameplayInteractionComponent.h"
+/** Uncomment if you are using GameplayInteraction */
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+/** Uncomment if you are using GameplayContainers */
+#include "Items/Fragments/GameplayItemFragment_Equipment.h"
+#include "Core/Equipment/PawnEquipmentComponent.h"
 #include "Core/Inventory/InventoryComponent.h"
-#include "Core/Equipment/EquipmentComponent.h"
 #include "Core/Hotbar/HotbarComponent.h"
-#endif
+#include "GameplayContainerTags.h"
+/** Uncomment if you are using GameplayContainers */
 
 AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UUnifyCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
@@ -82,16 +84,24 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	BaseEyeHeight = 90.0f;
 	CrouchedEyeHeight = 35.0f;
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-	EquipmentComponent = CreateDefaultSubobject<UEquipmentComponent>(TEXT("EquipmentComponent"));
+	/** Uncomment if you are using GameplayContainers */
+	HotbarComponent = CreateDefaultSubobject<UHotbarComponent>(TEXT("HotbarComponent"));
+	HotbarComponent->SetIsReplicated(true);
+	
+	EquipmentComponent = CreateDefaultSubobject<UPawnEquipmentComponent>(TEXT("EquipmentComponent"));
 	EquipmentComponent->SetIsReplicated(true);
-#endif
+	/** Uncomment if you are using GameplayContainers */
 	
 }
 
 void AUnifyCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+}
+
+void AUnifyCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
 }
 
 void AUnifyCharacter::PossessedBy(AController* NewController)
@@ -102,15 +112,15 @@ void AUnifyCharacter::PossessedBy(AController* NewController)
 	{
 		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, /*Avatar*/ this);
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+		/** Uncomment if you are using GameplayContainers */
 		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
-			GameplayContainerInterface->GetHotbarComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		}
-		
+
+		HotbarComponent->RegisterWithAbilitySystem(GetAbilitySystemComponent());
 		EquipmentComponent->RegisterWithAbilitySystem(GetAbilitySystemComponent());
-#endif
+		/** Uncomment if you are using GameplayContainers */
 		
 		for (UUnifyAbilitySet* AbilitySet: AbilitySets)
 		{
@@ -128,16 +138,15 @@ void AUnifyCharacter::UnPossessed()
 {
 	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
-
-#if COMPILE_GAMEPLAY_CONTAINERS
+		/** Uncomment if you are using GameplayContainers */
 		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->UnregisterAbilitySystem();
-			GameplayContainerInterface->GetHotbarComponent()->UnregisterAbilitySystem();
 		}
 
+		HotbarComponent->UnregisterAbilitySystem();
 		EquipmentComponent->UnregisterAbilitySystem();
-#endif
+		/** Uncomment if you are using GameplayContainers */
 		
 		for (FUnifyAbilitySetGrantedHandles* Handle: AbilitySetsGrantedHandles)
 		{
@@ -154,14 +163,12 @@ void AUnifyCharacter::UnPossessed()
 	Super::UnPossessed();
 }
 
-#if COMPILE_GAMEPLAY_INTERACTION
-
-UGameplayInteractionComponent* AUnifyCharacter::GetInteractionComponent()
+/** Uncomment if you are using GameplayInteraction */
+/*UGameplayInteractionComponent* AUnifyCharacter::GetInteractionComponent()
 {
 	return InteractionComponent;
-}
-
-#endif
+}*/
+/** Uncomment if you are using GameplayInteraction */
 
 void AUnifyCharacter::NotifyControllerChanged()
 {
@@ -176,15 +183,15 @@ void AUnifyCharacter::OnRep_PlayerState()
 	{
 		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, /*Avatar*/ this);
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+		/** Uncomment if you are using GameplayContainers */
 		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
-			GameplayContainerInterface->GetHotbarComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		}
-		
+
+		HotbarComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		EquipmentComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
-#endif
+		/** Uncomment if you are using GameplayContainers */
 		
 	}
 }
@@ -209,12 +216,12 @@ AUnifyPlayerController* AUnifyCharacter::GetUnifyPlayerController() const
 	return GetController<AUnifyPlayerController>();
 }
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-
-TArray<UGameplayContainerComponent*> AUnifyCharacter::GetGameplayContainers()
+/** Uncomment if you are using GameplayContainers */
+TArray<UGameplayContainerComponent*> AUnifyCharacter::GetAllContainers()
 {
 	TArray<UGameplayContainerComponent*> Containers;
 
+	Containers.AddUnique(HotbarComponent);
 	Containers.AddUnique(EquipmentComponent);
 
 	return Containers;
@@ -227,7 +234,7 @@ UInventoryComponent* AUnifyCharacter::GetInventoryComponent()
 
 UHotbarComponent* AUnifyCharacter::GetHotbarComponent()
 {
-	return GetUnifyPlayerController()->GetHotbarComponent();
+	return HotbarComponent;
 }
 
 UEquipmentComponent* AUnifyCharacter::GetEquipmentComponent()
@@ -235,7 +242,64 @@ UEquipmentComponent* AUnifyCharacter::GetEquipmentComponent()
 	return EquipmentComponent;
 }
 
-#endif
+UGameplayContainerComponent* AUnifyCharacter::GetActiveContainerComponent()
+{
+	return GetUnifyPlayerController()->GetActiveContainerComponent();
+}
+
+UMeshComponent* AUnifyCharacter::GetMeshComponentByTag(const FName ComponentTag) const
+{
+	return Cast<UMeshComponent>(FindComponentByTag(UMeshComponent::StaticClass(), ComponentTag));
+}
+
+void AUnifyCharacter::OnItemEquipped(const UGameplayItemDefinition* Item)
+{
+	if (Item)
+	{
+		const TSubclassOf<UAnimInstance> AnimLayer_FirstPerson = Item->GetFragmentByClass<UGameplayItemFragment_Equipment>()->GetEquipmentDefinition()->GetAnimationLayerInfoByTag(GameplayContainerTags::TAG_Perspective_FirstPerson_Equipment_AnimationLayer_Equipped).AnimationLayerClass;
+		const TSubclassOf<UAnimInstance> AnimLayer_ThirdPerson = Item->GetFragmentByClass<UGameplayItemFragment_Equipment>()->GetEquipmentDefinition()->GetAnimationLayerInfoByTag(GameplayContainerTags::TAG_Perspective_ThirdPerson_Equipment_AnimationLayer_Equipped).AnimationLayerClass;
+
+		// You can also change equipment meshes here if you want to
+		
+		if (UAnimInstance* MyAnimInstance = FirstPersonMesh->GetAnimInstance())
+		{
+			MyAnimInstance->LinkAnimClassLayers(AnimLayer_FirstPerson);
+		}
+		
+		if (const USkeletalMeshComponent* MyMesh = GetMesh())
+		{
+			if (UAnimInstance* MyAnimInstance = MyMesh->GetAnimInstance())
+			{
+				MyAnimInstance->LinkAnimClassLayers(AnimLayer_ThirdPerson);
+			}
+		}
+	}
+}
+
+void AUnifyCharacter::OnItemUnequipped(const UGameplayItemDefinition* Item)
+{
+	if (Item)
+	{
+		const TSubclassOf<UAnimInstance> AnimLayer_FirstPerson = Item->GetFragmentByClass<UGameplayItemFragment_Equipment>()->GetEquipmentDefinition()->GetAnimationLayerInfoByTag(GameplayContainerTags::TAG_Perspective_FirstPerson_Equipment_AnimationLayer_Unequipped).AnimationLayerClass;
+		const TSubclassOf<UAnimInstance> AnimLayer_ThirdPerson = Item->GetFragmentByClass<UGameplayItemFragment_Equipment>()->GetEquipmentDefinition()->GetAnimationLayerInfoByTag(GameplayContainerTags::TAG_Perspective_ThirdPerson_Equipment_AnimationLayer_Unequipped).AnimationLayerClass;
+
+		// You can also change equipment meshes here if you want to
+		
+		if (UAnimInstance* MyAnimInstance = FirstPersonMesh->GetAnimInstance())
+		{
+			MyAnimInstance->LinkAnimClassLayers(AnimLayer_FirstPerson);
+		}
+		
+		if (const USkeletalMeshComponent* MyMesh = GetMesh())
+		{
+			if (UAnimInstance* MyAnimInstance = MyMesh->GetAnimInstance())
+			{
+				MyAnimInstance->LinkAnimClassLayers(AnimLayer_ThirdPerson);
+			}
+		}
+	}
+}
+/** Uncomment if you are using GameplayContainers */
 
 void AUnifyCharacter::Input_AbilityInputTagPressed(const FGameplayTag InputTag)
 {
@@ -292,45 +356,37 @@ void AUnifyCharacter::Input_Look(const FInputActionValue& InputActionValue)
 	}
 }
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-
+/** Uncomment if you are using GameplayContainers */
 void AUnifyCharacter::Input_Hotbar_1()
 {
-	FGameplayTagContainer FailureTags;
-	GetHotbarComponent()->ToggleSlot(0, FailureTags);
+	GetHotbarComponent()->ToggleSlotByIndex(0);
 }
 
 void AUnifyCharacter::Input_Hotbar_2()
 {
-	FGameplayTagContainer FailureTags;
-	GetHotbarComponent()->ToggleSlot(1, FailureTags);
+	GetHotbarComponent()->ToggleSlotByIndex(1);
 }
 
 void AUnifyCharacter::Input_Hotbar_3()
 {
-	FGameplayTagContainer FailureTags;
-	GetHotbarComponent()->ToggleSlot(2, FailureTags);
+	GetHotbarComponent()->ToggleSlotByIndex(2);
 }
 
 void AUnifyCharacter::Input_Hotbar_4()
 {
-	FGameplayTagContainer FailureTags;
-	GetHotbarComponent()->ToggleSlot(3, FailureTags);
+	GetHotbarComponent()->ToggleSlotByIndex(3);
 }
 
 void AUnifyCharacter::Input_Hotbar_5()
 {
-	FGameplayTagContainer FailureTags;
-	GetHotbarComponent()->ToggleSlot(4, FailureTags);
+	GetHotbarComponent()->ToggleSlotByIndex(4);
 }
 
 void AUnifyCharacter::Input_Hotbar_6()
 {
-	FGameplayTagContainer FailureTags;
-	GetHotbarComponent()->ToggleSlot(5, FailureTags);
+	GetHotbarComponent()->ToggleSlotByIndex(5);
 }
-
-#endif
+/** Uncomment if you are using GameplayContainers */
 
 void AUnifyCharacter::EnableMovementAndCollision() const
 {
@@ -414,17 +470,14 @@ void AUnifyCharacter::InitializePlayerInput(UUnifyInputComponent* PlayerInputCom
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Move, this, &ThisClass::Input_Move, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Look, this, &ThisClass::Input_Look, /*bLogIfNotFound=*/ false);
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-			
-			// Bind Hotbar Input
+			/** Uncomment if you are using GameplayContainers */
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_1, this, &ThisClass::Input_Hotbar_1, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_2, this, &ThisClass::Input_Hotbar_2, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_3, this, &ThisClass::Input_Hotbar_3, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_4, this, &ThisClass::Input_Hotbar_4, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_5, this, &ThisClass::Input_Hotbar_5, /*bLogIfNotFound=*/ false);
 			PlayerInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Hotbar_6, this, &ThisClass::Input_Hotbar_6, /*bLogIfNotFound=*/ false);
-
-#endif
+			/** Uncomment if you are using GameplayContainers */                      
 			
 		}
 	}

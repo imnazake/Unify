@@ -58,6 +58,20 @@
 		{
 			"Name": "AsyncMixin",
 			"Enabled": true
+		},
+		{
+			"Name": "ModelViewViewModel",
+			"Enabled": true
+		},
+		{
+			"Name": "GameplayContainers",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/0d1ea7ebf86149f4b3cf8cb0e8c21936"
+		},
+		{
+			"Name": "GameplayInteraction",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/77d0d5fecc95470b8446ccb2bcd5cc13"
 		}
 	],
 	"TargetPlatforms": [
@@ -65,6 +79,7 @@
 		"Win64",
 		"Linux",
 		"LinuxArm64",
-		"Mac"
+		"Mac",
+		"Windows"
 	]
 }

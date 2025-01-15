@@ -64,20 +64,18 @@ void FUnifyGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(Input_Look, "Input.Look", "Look (mouse) input.");
 	AddTag(Input_Jump, "Input.Jump", "Jump input.");
 	AddTag(Input_Crouch, "Input.Crouch", "Crouch input.");
-
-#if COMPILE_GAMEPLAY_CONTAINERS
 	
+	AddTag(Input_ToggleInventory, "Input.ToggleInventory", "Toggle inventory input.");
+	
+	/** Uncomment if you are using GameplayContainers */
 	AddTag(Input_Hotbar_1, "Input.Hotbar.1", "Toggle hotbar slot 1.");
 	AddTag(Input_Hotbar_2, "Input.Hotbar.2", "Toggle hotbar slot 2.");
 	AddTag(Input_Hotbar_3, "Input.Hotbar.3", "Toggle hotbar slot 3.");
 	AddTag(Input_Hotbar_4, "Input.Hotbar.4", "Toggle hotbar slot 4.");
 	AddTag(Input_Hotbar_5, "Input.Hotbar.5", "Toggle hotbar slot 5.");
 	AddTag(Input_Hotbar_6, "Input.Hotbar.6", "Toggle hotbar slot 6.");
-	
-#endif
+	/** Uncomment if you are using GameplayContainers */
 
-	AddTag(Input_OpenInventory, "Input.OpenInventory", "Open inventory menu input.");
-	
 	AddTag(GameplayEvent_Death, "GameplayEvent.Death", "Event that fires on death. This event only fires on the server.");
 	AddTag(GameplayEvent_Respawn, "GameplayEvent.Respawn", "Event that fires once a player reset or respawn is executed.");
 	AddTag(GameplayEvent_RequestRespawn, "GameplayEvent.RequestRespawn", "Event to request a player's pawn to be instantly replaced with a new one at a valid spawn location.");
@@ -89,6 +87,8 @@ void FUnifyGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 
 	AddTag(Cheat_GodMode, "Cheat.GodMode", "GodMode cheat is active on the owner.");
 
+	AddTag(Status_UI_Inventory, "Status.UI.Inventory", "The player inventory is toggled on or open.");
+	
 	AddTag(Status_Crouching, "Status.Crouching", "Target is crouching.");
 	AddTag(Status_Death, "Status.Death", "Target has the death status.");
 	AddTag(Status_Death_KnockedOut, "Status.Death.KnockedOut", "Target has begun the death process.");

@@ -9,7 +9,7 @@
  *
  * Set to 1 to enable the setup, or 0 to disable it.  
  */
-#define COMPILE_GAMEPLAY_CONTAINERS 0
+#define COMPILE_GAMEPLAY_CONTAINERS 1
 
 /**
  * This macro controls whether the project will be compiled with the necessary configurations for using Gameplay Interaction.

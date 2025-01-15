@@ -11,34 +11,30 @@
 #include "AbilitySystemGlobals.h"
 #include "UnifyLogging.h"
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+/** Uncomment if you are using GameplayContainers */
 #include "Core/Inventory/InventoryComponent.h"
 #include "Core/Equipment/EquipmentComponent.h"
 #include "Core/Hotbar/HotbarComponent.h"
-#endif
+/** Uncomment if you are using GameplayContainers */
 
-#if COMPILE_GAMEPLAY_INTERACTION
-#include "Core/GameplayInteractionComponent.h"
-#endif
+/** Uncomment if you are using GameplayContainers */
+//#include "Core/GameplayInteractionComponent.h"
+/** Uncomment if you are using GameplayContainers */
 
 AUnifyPlayerController::AUnifyPlayerController()
 {
 	// Required for aiming with the player controller and using its transform
 	bAttachToPawn = true;
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+	/** Uncomment if you are using GameplayContainers */
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	InventoryComponent->SetIsReplicated(true);
-	
-	HotbarComponent = CreateDefaultSubobject<UHotbarComponent>(TEXT("HotbarComponent"));
-	HotbarComponent->SetIsReplicated(true);
-	
-#endif
+	/** Uncomment if you are using GameplayContainers */
 
-#if COMPILE_GAMEPLAY_INTERACTION
-	InteractionComponent = CreateDefaultSubobject<UGameplayInteractionComponent>(TEXT("InteractionComponent"));
-	InteractionComponent->SetIsReplicated(true);
-#endif
+	/** Uncomment if you are using GameplayInteraction */
+	//InteractionComponent = CreateDefaultSubobject<UGameplayInteractionComponent>(TEXT("InteractionComponent"));
+	//InteractionComponent->SetIsReplicated(true);
+	/** Uncomment if you are using GameplayInteraction */
 
 }
 
@@ -79,14 +75,14 @@ UAbilitySystemComponent* AUnifyPlayerController::GetAbilitySystemComponent() con
 	return nullptr;
 }
 
-#if COMPILE_GAMEPLAY_INTERACTION
+/** Uncomment if you are using GameplayInteraction */
 
-UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent()
+/*UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent()
 {
 	return InteractionComponent;
-}
+}*/
 
-#endif
+/** Uncomment if you are using GameplayInteraction */
 
 void AUnifyPlayerController::PreProcessInput(const float DeltaTime, const bool bGamePaused)
 {
@@ -113,14 +109,13 @@ UUnifyAbilitySystemComponent* AUnifyPlayerController::GetUnifyAbilitySystemCompo
 	return nullptr;
 }
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+/** Uncomment if you are using GameplayContainers */
 
-TArray<UGameplayContainerComponent*> AUnifyPlayerController::GetGameplayContainers()
+TArray<UGameplayContainerComponent*> AUnifyPlayerController::GetAllContainers()
 {
 	TArray<UGameplayContainerComponent*> FoundContainers;
 
 	FoundContainers.AddUnique(InventoryComponent);
-	FoundContainers.AddUnique(HotbarComponent);
 	
 	return FoundContainers;
 }
@@ -132,7 +127,12 @@ UInventoryComponent* AUnifyPlayerController::GetInventoryComponent()
 
 UHotbarComponent* AUnifyPlayerController::GetHotbarComponent()
 {
-	return HotbarComponent;
+	if (AUnifyCharacter* MyCharacter = Cast<AUnifyCharacter>(GetPawn()))
+	{
+		return MyCharacter->GetHotbarComponent();
+	}
+
+	return nullptr;
 }
 
 UEquipmentComponent* AUnifyPlayerController::GetEquipmentComponent()
@@ -147,17 +147,35 @@ UEquipmentComponent* AUnifyPlayerController::GetEquipmentComponent()
 
 void AUnifyPlayerController::OnContainerUserRegistered(const FGameplayContainerUser& User)
 {
-	ActiveContainer = User.GetTargetContainer();
+	if (const APlayerController* PC = User.GetAbilitySystemComponent()->AbilityActorInfo.Get()->PlayerController.Get())
+	{
+		if (PC == this)
+		{
+			ActiveContainer = User.GetTargetContainer();
+		}
+	}
 }
 
 void AUnifyPlayerController::OnContainerUserUnregistered(const FGameplayContainerUser& User)
 {
-	ActiveContainer = nullptr;
+	if (const APlayerController* PC = User.GetAbilitySystemComponent()->AbilityActorInfo.Get()->PlayerController.Get())
+	{
+		if (PC == this)
+		{
+			ActiveContainer = nullptr;
+		}
+	}
 }
 
 void AUnifyPlayerController::OnContainerUserInfoChanged(const FGameplayContainerUser& User)
 {
-	ActiveContainer = User.GetTargetContainer();
+	if (const APlayerController* PC = User.GetAbilitySystemComponent()->AbilityActorInfo.Get()->PlayerController.Get())
+	{
+		if (PC == this)
+		{
+			ActiveContainer = User.GetTargetContainer();
+		}
+	}
 }
 
 UGameplayContainerComponent* AUnifyPlayerController::GetActiveContainerComponent()
@@ -165,49 +183,30 @@ UGameplayContainerComponent* AUnifyPlayerController::GetActiveContainerComponent
 	return ActiveContainer;
 }
 
-void AUnifyPlayerController::SetActiveContainerComponent(UGameplayContainerComponent* NewContainer)
-{
-	ActiveContainer = NewContainer;
-}
-
-#endif
-
-#if COMPILE_GAMEPLAY_CONTAINERS
-
 UInventoryComponent* AUnifyPlayerController::GetInventoryComponent() const
 {
 	return InventoryComponent;
 }
 
-UHotbarComponent* AUnifyPlayerController::GetHotbarComponent() const
-{
-	return HotbarComponent;
-}
-
-#endif
+/** Uncomment if you are using GameplayContainers */
 
 void AUnifyPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-	
+	/** Uncomment if you are using GameplayContainers */
 	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
-		HotbarComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		InventoryComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 	}
+	/** Uncomment if you are using GameplayContainers */
 
-#endif
-
-#if COMPILE_GAMEPLAY_INTERACTION
-
-	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	/** Uncomment if you are using GameplayInteraction */
+	/*if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		InteractionComponent->RegisterAbilitySystemComponent(PS->GetAbilitySystemComponent());
-	}
-	
-#endif
+	}*/
+	/** Uncomment if you are using GameplayInteraction */
 	
 }
 
@@ -239,24 +238,19 @@ void AUnifyPlayerController::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-	
+	/** Uncomment if you are using GameplayContainers */
 	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
-		HotbarComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		InventoryComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 	}
+	/** Uncomment if you are using GameplayContainers */
 
-#endif
-
-#if COMPILE_GAMEPLAY_INTERACTION
-	
-	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	/** Uncomment if you are using GameplayInteraction */
+	/*if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		InteractionComponent->RegisterAbilitySystemComponent(PS->GetAbilitySystemComponent());
-	}
-	
-#endif
+	}*/
+	/** Uncomment if you are using GameplayInteraction */
 	
 }
 

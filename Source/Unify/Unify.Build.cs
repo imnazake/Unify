@@ -7,12 +7,11 @@ public class Unify : ModuleRules
 	public Unify(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		
-		PublicDependencyModuleNames.AddRange(new string[]
-		{
-			// "GameplayContainers",
-			// "GameplayInteraction",
-		});
+			
+		// COMPILE_GAMEPLAY_CONTAINERS
+		PublicDependencyModuleNames.Add("GameplayContainers");
+		// COMPILE_GAMEPLAY_INTERACTION
+		//PublicDependencyModuleNames.Add("GameplayInteraction");
 		
 		PublicDependencyModuleNames.AddRange(new string[]
 		{

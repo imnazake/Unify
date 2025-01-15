@@ -8,18 +8,21 @@
 #include "GameplayTagContainer.h"
 #include "AbilitySystemInterface.h"
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+/** Uncomment if you are using GameplayContainers */
+#include "Core/Equipment/IGameplayEquipmentInterface.h"
 #include "Core/IGameplayContainerInterface.h"
-#endif
 
-#if COMPILE_GAMEPLAY_INTERACTION
-#include "Core/IGameplayInteractionInterface.h"
-#endif
+class UHotbarComponent;
+class UPawnEquipmentComponent;
+/** Uncomment if you are using GameplayContainers */
+
+/** Uncomment if you are using GameplayInteraction */
+//#include "Core/IGameplayInteractionInterface.h"
+/** Uncomment if you are using GameplayInteraction */
 
 #include "GameFramework/Character.h"
 #include "UnifyCharacter.generated.h"
 
-class UEquipmentComponent;
 class UCameraComponent;
 class UUnifyAbilitySet;
 class USpringArmComponent;
@@ -36,13 +39,14 @@ struct FUnifyAbilitySetGrantedHandles;
 UCLASS()
 class UNIFY_API AUnifyCharacter : public ACharacter, public IAbilitySystemInterface
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+/** Uncomment if you are using GameplayContainers */
 	, public IGameplayContainerInterface
-#endif
+	, public IGameplayEquipmentInterface
+/** Uncomment if you are using GameplayContainers */
 
-#if COMPILE_GAMEPLAY_INTERACTION
-	, public IGameplayInteractionInterface
-#endif
+/** Uncomment if you are using GameplayInteraction */
+	//, public IGameplayInteractionInterface
+/** Uncomment if you are using GameplayInteraction */
 
 {
 	GENERATED_BODY()
@@ -52,6 +56,8 @@ public:
 	AUnifyCharacter(const FObjectInitializer& ObjectInitializer);
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	virtual void PostInitializeComponents() override;
 	
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void UnPossessed() override;
@@ -72,22 +78,23 @@ public:
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
 
-#if COMPILE_GAMEPLAY_INTERACTION
-	/** Uncomment this if compile gameplay interaction is enabled. */
+	/** Uncomment if you are using GameplayInteraction */
 	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
-	virtual UGameplayInteractionComponent* GetInteractionComponent() override;
-#endif
+	//virtual UGameplayInteractionComponent* GetInteractionComponent() override;
+	/** Uncomment if you are using GameplayInteraction */
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-	
+	/** Uncomment if you are using GameplayContainers */
 	void Input_Hotbar_1();
 	void Input_Hotbar_2();
 	void Input_Hotbar_3();
 	void Input_Hotbar_4();
 	void Input_Hotbar_5();
 	void Input_Hotbar_6();
-	
-#endif
+	/** Uncomment if you are using GameplayContainers */
+
+	/** Uncomment if you are using GameplayInteraction */
+	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
+	//class UGameplayInteractionComponent* GetInteractionComponent();
 
 	void EnableMovementAndCollision() const;
 	void DisableMovementAndCollision() const;
@@ -98,16 +105,21 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ IAbilitySystemInterface
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-
-	//~IGameplayContainerInterface
-	virtual TArray<UGameplayContainerComponent*> GetGameplayContainers() override;
+	/** Uncomment if you are using GameplayContainers */
+	virtual TArray<UGameplayContainerComponent*> GetAllContainers() override;
 	virtual UInventoryComponent* GetInventoryComponent() override;
 	virtual UHotbarComponent* GetHotbarComponent() override;
 	virtual UEquipmentComponent* GetEquipmentComponent() override;
-	//~IGameplayContainerInterface
-
-#endif
+	/** Uncomment if you are using GameplayContainers */
+	
+	/** Uncomment if you are using GameplayContainers */
+	UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
+	virtual UGameplayContainerComponent* GetActiveContainerComponent() override;
+	/** Uncomment if you are using GameplayContainers */
+	
+	virtual UMeshComponent* GetMeshComponentByTag(FName ComponentTag) const override;
+	virtual void OnItemEquipped(const UGameplayItemDefinition* Item) override;
+	virtual void OnItemUnequipped(const UGameplayItemDefinition* Item) override;
 
 	UFUNCTION(BlueprintPure, Category = "Unify|Character")
 	UUnifyAbilitySystemComponent* GetUnifyAbilitySystemComponent() const;
@@ -124,11 +136,15 @@ protected:
 
 protected:
 
-#if COMPILE_GAMEPLAY_CONTAINERS
-	/** Uncomment this if compile gameplay containers is enabled. */
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Equipment")
-	TObjectPtr<UEquipmentComponent> EquipmentComponent;
-#endif
+	/** Uncomment if you are using GameplayContainers */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|Character")
+	TObjectPtr<UHotbarComponent> HotbarComponent;
+	/** Uncomment if you are using GameplayContainers */
+
+	/** Uncomment if you are using GameplayContainers */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|Character")
+	TObjectPtr<UPawnEquipmentComponent> EquipmentComponent;
+	/** Uncomment if you are using GameplayContainers */
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")
 	TObjectPtr<USkeletalMeshComponent> FirstPersonMesh;

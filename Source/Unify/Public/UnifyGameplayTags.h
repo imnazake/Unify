@@ -18,7 +18,6 @@ struct UNIFY_API FUnifyGameplayTags
 	static void InitializeNativeTags();
 
 	static FGameplayTag FindTagByString(const FString& TagString, bool bMatchPartialString = false);
-
 	
 	FGameplayTag Ability_Action_Jump;
 	
@@ -38,18 +37,16 @@ struct UNIFY_API FUnifyGameplayTags
 	FGameplayTag Input_Jump;
 	FGameplayTag Input_Crouch;
 
-#if COMPILE_GAMEPLAY_CONTAINERS
+	FGameplayTag Input_ToggleInventory;
 	
+	/** Uncomment if you are using GameplayContainers */
 	FGameplayTag Input_Hotbar_1;
 	FGameplayTag Input_Hotbar_2;
 	FGameplayTag Input_Hotbar_3;
 	FGameplayTag Input_Hotbar_4;
 	FGameplayTag Input_Hotbar_5;
 	FGameplayTag Input_Hotbar_6;
-
-#endif
-
-	FGameplayTag Input_OpenInventory;
+	/** Uncomment if you are using GameplayContainers */
 
 	FGameplayTag GameplayEvent_Death;
 	FGameplayTag GameplayEvent_Respawn;
@@ -62,6 +59,8 @@ struct UNIFY_API FUnifyGameplayTags
 
 	FGameplayTag Cheat_GodMode;
 
+	FGameplayTag Status_UI_Inventory;
+	
 	FGameplayTag Status_Crouching;
 	FGameplayTag Status_Death;
 	FGameplayTag Status_Death_KnockedOut;
