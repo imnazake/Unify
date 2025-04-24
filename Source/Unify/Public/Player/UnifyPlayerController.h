@@ -8,15 +8,15 @@
 #include "AbilitySystem/UnifyAbilitySet.h"
 
 /** Uncomment if you are using GameplayContainers */
-#include "Core/IGameplayContainerInterface.h"
-#include "Core/Users/IGameplayContainerUserInterface.h"
+//#include "Core/IGameplayContainerInterface.h"
+//#include "Core/Users/IGameplayContainerUserInterface.h"
 
-class UInventoryComponent;
+//class UInventoryComponent;
 /** Uncomment if you are using GameplayContainers */
 
 /** Uncomment if you are using GameplayInteraction */
-//#include "Core/IGameplayInteractionInterface.h"
-//class UGameplayInteractionComponent;
+#include "Core/IGameplayInteractionInterface.h"
+class UGameplayInteractionComponent;
 /** Uncomment if you are using GameplayInteraction */
 
 #include "UnifyPlayerController.generated.h"
@@ -33,11 +33,11 @@ class UUnifyAbilitySystemComponent;
 UCLASS()
 class UNIFY_API AUnifyPlayerController : public ACommonPlayerController, public IAbilitySystemInterface
 /** Uncomment if you are using GameplayContainers */
-	, public IGameplayContainerInterface
-	, public IGameplayContainerUserInterface
+	//, public IGameplayContainerInterface
+	//, public IGameplayContainerUserInterface
 
 /** Uncomment if you are using GameplayInteraction */
-	//, public IGameplayInteractionInterface
+	, public IGameplayInteractionInterface
 {
 	GENERATED_BODY()
 
@@ -83,46 +83,46 @@ public:
 	UUnifyAbilitySystemComponent* GetUnifyAbilitySystemComponent() const;
 
 	/** Uncomment if you are using GameplayContainers */
-	virtual TArray<UGameplayContainerComponent*> GetAllContainers() override;
-	virtual UInventoryComponent* GetInventoryComponent() override;
-	virtual UHotbarComponent* GetHotbarComponent() override;
-	virtual UEquipmentComponent* GetEquipmentComponent() override;
+	//virtual TArray<UGameplayContainerComponent*> GetAllContainers() override;
+	//virtual UInventoryComponent* GetInventoryComponent() override;
+	//virtual UHotbarComponent* GetHotbarComponent() override;
+	//virtual UEquipmentComponent* GetEquipmentComponent() override;
 	/** Uncomment if you are using GameplayContainers */
 	
 	/** Uncomment if you are using GameplayContainers */
-	virtual void OnContainerUserRegistered(const FGameplayContainerUser& User) override;
-	virtual void OnContainerUserUnregistered(const FGameplayContainerUser& User) override;
-	virtual void OnContainerUserInfoChanged(const FGameplayContainerUser& User) override;
+	//virtual void OnContainerUserRegistered(const FGameplayContainerUser& User) override;
+	//virtual void OnContainerUserUnregistered(const FGameplayContainerUser& User) override;
+	//virtual void OnContainerUserInfoChanged(const FGameplayContainerUser& User) override;
 	/** Uncomment if you are using GameplayContainers */
 
 	/** Uncomment if you are using GameplayContainers */
-	UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
-	virtual UGameplayContainerComponent* GetActiveContainerComponent() override;
+	//UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
+	//virtual UGameplayContainerComponent* GetActiveContainerComponent() override;
 	/** Uncomment if you are using GameplayContainers */
 	
 	/** Uncomment if you are using GameplayContainers */
-	UFUNCTION(BlueprintPure, Category = "Unify|Character")
-	UInventoryComponent* GetInventoryComponent() const;
+	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
+	//UInventoryComponent* GetInventoryComponent() const;
 	/** Uncomment if you are using GameplayContainers */
 
 	
 	/** Uncomment if you are using GameplayInteraction */
-	//UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
-	//virtual UGameplayInteractionComponent* GetInteractionComponent() override;
+	UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
+	virtual UGameplayInteractionComponent* GetInteractionComponent() override;
 
 protected:
 	
 	/** Uncomment if you are using GameplayContainers */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
-	TObjectPtr<UInventoryComponent> InventoryComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	//TObjectPtr<UInventoryComponent> InventoryComponent;
 	
 	/** Uncomment if you are using GameplayContainers */
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
-	TObjectPtr<UGameplayContainerComponent> ActiveContainer;
+	//UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	//TObjectPtr<UGameplayContainerComponent> ActiveContainer;
 	
 	/** Uncomment if you are using GameplayInteraction */
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
-	//TObjectPtr<UGameplayInteractionComponent> InteractionComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|PlayerController")
+	TObjectPtr<UGameplayInteractionComponent> InteractionComponent;
 
 private:
 

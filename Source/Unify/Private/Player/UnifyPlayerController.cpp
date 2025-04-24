@@ -12,13 +12,13 @@
 #include "UnifyLogging.h"
 
 /** Uncomment if you are using GameplayContainers */
-#include "Core/Inventory/InventoryComponent.h"
-#include "Core/Equipment/EquipmentComponent.h"
-#include "Core/Hotbar/HotbarComponent.h"
+//#include "Core/Inventory/InventoryComponent.h"
+//#include "Core/Equipment/EquipmentComponent.h"
+//#include "Core/Hotbar/HotbarComponent.h"
 /** Uncomment if you are using GameplayContainers */
 
 /** Uncomment if you are using GameplayContainers */
-//#include "Core/GameplayInteractionComponent.h"
+#include "Core/GameplayInteractionComponent.h"
 /** Uncomment if you are using GameplayContainers */
 
 AUnifyPlayerController::AUnifyPlayerController()
@@ -27,13 +27,13 @@ AUnifyPlayerController::AUnifyPlayerController()
 	bAttachToPawn = true;
 
 	/** Uncomment if you are using GameplayContainers */
-	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
-	InventoryComponent->SetIsReplicated(true);
+	//InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+	//InventoryComponent->SetIsReplicated(true);
 	/** Uncomment if you are using GameplayContainers */
 
 	/** Uncomment if you are using GameplayInteraction */
-	//InteractionComponent = CreateDefaultSubobject<UGameplayInteractionComponent>(TEXT("InteractionComponent"));
-	//InteractionComponent->SetIsReplicated(true);
+	InteractionComponent = CreateDefaultSubobject<UGameplayInteractionComponent>(TEXT("InteractionComponent"));
+	InteractionComponent->SetIsReplicated(true);
 	/** Uncomment if you are using GameplayInteraction */
 
 }
@@ -77,10 +77,10 @@ UAbilitySystemComponent* AUnifyPlayerController::GetAbilitySystemComponent() con
 
 /** Uncomment if you are using GameplayInteraction */
 
-/*UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent()
+UGameplayInteractionComponent* AUnifyPlayerController::GetInteractionComponent()
 {
 	return InteractionComponent;
-}*/
+}
 
 /** Uncomment if you are using GameplayInteraction */
 
@@ -111,7 +111,7 @@ UUnifyAbilitySystemComponent* AUnifyPlayerController::GetUnifyAbilitySystemCompo
 
 /** Uncomment if you are using GameplayContainers */
 
-TArray<UGameplayContainerComponent*> AUnifyPlayerController::GetAllContainers()
+/*TArray<UGameplayContainerComponent*> AUnifyPlayerController::GetAllContainers()
 {
 	TArray<UGameplayContainerComponent*> FoundContainers;
 
@@ -186,7 +186,7 @@ UGameplayContainerComponent* AUnifyPlayerController::GetActiveContainerComponent
 UInventoryComponent* AUnifyPlayerController::GetInventoryComponent() const
 {
 	return InventoryComponent;
-}
+}*/
 
 /** Uncomment if you are using GameplayContainers */
 
@@ -195,17 +195,17 @@ void AUnifyPlayerController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 
 	/** Uncomment if you are using GameplayContainers */
-	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	/*if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		InventoryComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
-	}
+	}*/
 	/** Uncomment if you are using GameplayContainers */
 
 	/** Uncomment if you are using GameplayInteraction */
-	/*if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		InteractionComponent->RegisterAbilitySystemComponent(PS->GetAbilitySystemComponent());
-	}*/
+	}
 	/** Uncomment if you are using GameplayInteraction */
 	
 }
@@ -239,17 +239,17 @@ void AUnifyPlayerController::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 
 	/** Uncomment if you are using GameplayContainers */
-	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	/*if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		InventoryComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
-	}
+	}*/
 	/** Uncomment if you are using GameplayContainers */
 
 	/** Uncomment if you are using GameplayInteraction */
-	/*if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
+	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		InteractionComponent->RegisterAbilitySystemComponent(PS->GetAbilitySystemComponent());
-	}*/
+	}
 	/** Uncomment if you are using GameplayInteraction */
 	
 }
