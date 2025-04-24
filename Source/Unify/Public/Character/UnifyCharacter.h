@@ -9,15 +9,15 @@
 #include "AbilitySystemInterface.h"
 
 /** Uncomment if you are using GameplayContainers */
-#include "Core/Equipment/IGameplayEquipmentInterface.h"
-#include "Core/IGameplayContainerInterface.h"
+//#include "Core/Equipment/IGameplayEquipmentInterface.h"
+//#include "Core/IGameplayContainerInterface.h"
 
-class UHotbarComponent;
-class UPawnEquipmentComponent;
+//class UHotbarComponent;
+//class UPawnEquipmentComponent;
 /** Uncomment if you are using GameplayContainers */
 
 /** Uncomment if you are using GameplayInteraction */
-//#include "Core/IGameplayInteractionInterface.h"
+#include "Core/IGameplayInteractionInterface.h"
 /** Uncomment if you are using GameplayInteraction */
 
 #include "GameFramework/Character.h"
@@ -40,12 +40,12 @@ UCLASS()
 class UNIFY_API AUnifyCharacter : public ACharacter, public IAbilitySystemInterface
 
 /** Uncomment if you are using GameplayContainers */
-	, public IGameplayContainerInterface
-	, public IGameplayEquipmentInterface
+	//, public IGameplayContainerInterface
+	//, public IGameplayEquipmentInterface
 /** Uncomment if you are using GameplayContainers */
 
 /** Uncomment if you are using GameplayInteraction */
-	//, public IGameplayInteractionInterface
+	, public IGameplayInteractionInterface
 /** Uncomment if you are using GameplayInteraction */
 
 {
@@ -79,8 +79,8 @@ public:
 	void Input_Look(const FInputActionValue& InputActionValue);
 
 	/** Uncomment if you are using GameplayInteraction */
-	//UFUNCTION(BlueprintPure, Category = "Unify|Character")
-	//virtual UGameplayInteractionComponent* GetInteractionComponent() override;
+	UFUNCTION(BlueprintPure, Category = "Unify|Character")
+	virtual UGameplayInteractionComponent* GetInteractionComponent() override;
 	/** Uncomment if you are using GameplayInteraction */
 
 	/** Uncomment if you are using GameplayContainers */
@@ -106,20 +106,20 @@ public:
 	//~ IAbilitySystemInterface
 
 	/** Uncomment if you are using GameplayContainers */
-	virtual TArray<UGameplayContainerComponent*> GetAllContainers() override;
-	virtual UInventoryComponent* GetInventoryComponent() override;
-	virtual UHotbarComponent* GetHotbarComponent() override;
-	virtual UEquipmentComponent* GetEquipmentComponent() override;
+	//virtual TArray<UGameplayContainerComponent*> GetAllContainers() override;
+	//virtual UInventoryComponent* GetInventoryComponent() override;
+	//virtual UHotbarComponent* GetHotbarComponent() override;
+	//virtual UEquipmentComponent* GetEquipmentComponent() override;
 	/** Uncomment if you are using GameplayContainers */
 	
 	/** Uncomment if you are using GameplayContainers */
-	UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
-	virtual UGameplayContainerComponent* GetActiveContainerComponent() override;
+	//UFUNCTION(BlueprintPure, Category = "Unify|PlayerController")
+	//virtual UGameplayContainerComponent* GetActiveContainerComponent() override;
 	/** Uncomment if you are using GameplayContainers */
 	
-	virtual UMeshComponent* GetMeshComponentByTag(FName ComponentTag) const override;
-	virtual void OnItemEquipped(const UGameplayItemDefinition* Item) override;
-	virtual void OnItemUnequipped(const UGameplayItemDefinition* Item) override;
+	//virtual UMeshComponent* GetMeshComponentByTag(FName ComponentTag) const override;
+	//virtual void OnItemEquipped(const UGameplayItemDefinition* Item) override;
+	//virtual void OnItemUnequipped(const UGameplayItemDefinition* Item) override;
 
 	UFUNCTION(BlueprintPure, Category = "Unify|Character")
 	UUnifyAbilitySystemComponent* GetUnifyAbilitySystemComponent() const;
@@ -137,13 +137,13 @@ protected:
 protected:
 
 	/** Uncomment if you are using GameplayContainers */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|Character")
-	TObjectPtr<UHotbarComponent> HotbarComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|Character")
+	//TObjectPtr<UHotbarComponent> HotbarComponent;
 	/** Uncomment if you are using GameplayContainers */
 
 	/** Uncomment if you are using GameplayContainers */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|Character")
-	TObjectPtr<UPawnEquipmentComponent> EquipmentComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Unify|Character")
+	//TObjectPtr<UPawnEquipmentComponent> EquipmentComponent;
 	/** Uncomment if you are using GameplayContainers */
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true), Category = "Mesh")

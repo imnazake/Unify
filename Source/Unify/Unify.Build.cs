@@ -9,9 +9,10 @@ public class Unify : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 			
 		// COMPILE_GAMEPLAY_CONTAINERS
-		PublicDependencyModuleNames.Add("GameplayContainers");
+		//PublicDependencyModuleNames.Add("GameplayContainers");
+		
 		// COMPILE_GAMEPLAY_INTERACTION
-		//PublicDependencyModuleNames.Add("GameplayInteraction");
+		PublicDependencyModuleNames.Add("GameplayInteraction");
 		
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
