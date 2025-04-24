@@ -14,15 +14,15 @@
 #include "InputMappingContext.h"
 
 /** Uncomment if you are using GameplayInteraction */
-//#include "Core/GameplayInteractionComponent.h"
+#include "Core/GameplayInteractionComponent.h"
 /** Uncomment if you are using GameplayInteraction */
 
 /** Uncomment if you are using GameplayContainers */
-#include "Items/Fragments/GameplayItemFragment_Equipment.h"
-#include "Core/Equipment/PawnEquipmentComponent.h"
-#include "Core/Inventory/InventoryComponent.h"
-#include "Core/Hotbar/HotbarComponent.h"
-#include "GameplayContainerTags.h"
+//#include "Items/Fragments/GameplayItemFragment_Equipment.h"
+//#include "Core/Equipment/PawnEquipmentComponent.h"
+//#include "Core/Inventory/InventoryComponent.h"
+//#include "Core/Hotbar/HotbarComponent.h"
+//#include "GameplayContainerTags.h"
 /** Uncomment if you are using GameplayContainers */
 
 AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
@@ -85,11 +85,11 @@ AUnifyCharacter::AUnifyCharacter(const FObjectInitializer& ObjectInitializer)
 	CrouchedEyeHeight = 35.0f;
 
 	/** Uncomment if you are using GameplayContainers */
-	HotbarComponent = CreateDefaultSubobject<UHotbarComponent>(TEXT("HotbarComponent"));
-	HotbarComponent->SetIsReplicated(true);
+	//HotbarComponent = CreateDefaultSubobject<UHotbarComponent>(TEXT("HotbarComponent"));
+	//HotbarComponent->SetIsReplicated(true);
 	
-	EquipmentComponent = CreateDefaultSubobject<UPawnEquipmentComponent>(TEXT("EquipmentComponent"));
-	EquipmentComponent->SetIsReplicated(true);
+	//EquipmentComponent = CreateDefaultSubobject<UPawnEquipmentComponent>(TEXT("EquipmentComponent"));
+	//EquipmentComponent->SetIsReplicated(true);
 	/** Uncomment if you are using GameplayContainers */
 	
 }
@@ -113,13 +113,13 @@ void AUnifyCharacter::PossessedBy(AController* NewController)
 		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, /*Avatar*/ this);
 
 		/** Uncomment if you are using GameplayContainers */
-		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
+		/*if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		}
 
 		HotbarComponent->RegisterWithAbilitySystem(GetAbilitySystemComponent());
-		EquipmentComponent->RegisterWithAbilitySystem(GetAbilitySystemComponent());
+		EquipmentComponent->RegisterWithAbilitySystem(GetAbilitySystemComponent());*/
 		/** Uncomment if you are using GameplayContainers */
 		
 		for (UUnifyAbilitySet* AbilitySet: AbilitySets)
@@ -139,13 +139,13 @@ void AUnifyCharacter::UnPossessed()
 	if (const AUnifyPlayerState* PS = GetPlayerState<AUnifyPlayerState>())
 	{
 		/** Uncomment if you are using GameplayContainers */
-		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
+		/*if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->UnregisterAbilitySystem();
 		}
 
 		HotbarComponent->UnregisterAbilitySystem();
-		EquipmentComponent->UnregisterAbilitySystem();
+		EquipmentComponent->UnregisterAbilitySystem();*/
 		/** Uncomment if you are using GameplayContainers */
 		
 		for (FUnifyAbilitySetGrantedHandles* Handle: AbilitySetsGrantedHandles)
@@ -164,10 +164,10 @@ void AUnifyCharacter::UnPossessed()
 }
 
 /** Uncomment if you are using GameplayInteraction */
-/*UGameplayInteractionComponent* AUnifyCharacter::GetInteractionComponent()
+UGameplayInteractionComponent* AUnifyCharacter::GetInteractionComponent()
 {
-	return InteractionComponent;
-}*/
+	return GetUnifyPlayerController()->GetInteractionComponent();
+}
 /** Uncomment if you are using GameplayInteraction */
 
 void AUnifyCharacter::NotifyControllerChanged()
@@ -184,13 +184,13 @@ void AUnifyCharacter::OnRep_PlayerState()
 		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, /*Avatar*/ this);
 
 		/** Uncomment if you are using GameplayContainers */
-		if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
+		/*if (IGameplayContainerInterface* GameplayContainerInterface = Cast<IGameplayContainerInterface>(PS->GetPlayerController()))
 		{
 			GameplayContainerInterface->GetInventoryComponent()->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
 		}
 
 		HotbarComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
-		EquipmentComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());
+		EquipmentComponent->RegisterWithAbilitySystem(PS->GetAbilitySystemComponent());*/
 		/** Uncomment if you are using GameplayContainers */
 		
 	}
@@ -217,7 +217,7 @@ AUnifyPlayerController* AUnifyCharacter::GetUnifyPlayerController() const
 }
 
 /** Uncomment if you are using GameplayContainers */
-TArray<UGameplayContainerComponent*> AUnifyCharacter::GetAllContainers()
+/*TArray<UGameplayContainerComponent*> AUnifyCharacter::GetAllContainers()
 {
 	TArray<UGameplayContainerComponent*> Containers;
 
@@ -298,7 +298,7 @@ void AUnifyCharacter::OnItemUnequipped(const UGameplayItemDefinition* Item)
 			}
 		}
 	}
-}
+}*/
 /** Uncomment if you are using GameplayContainers */
 
 void AUnifyCharacter::Input_AbilityInputTagPressed(const FGameplayTag InputTag)
@@ -359,32 +359,32 @@ void AUnifyCharacter::Input_Look(const FInputActionValue& InputActionValue)
 /** Uncomment if you are using GameplayContainers */
 void AUnifyCharacter::Input_Hotbar_1()
 {
-	GetHotbarComponent()->ToggleSlotByIndex(0);
+	//GetHotbarComponent()->ToggleSlotByIndex(0);
 }
 
 void AUnifyCharacter::Input_Hotbar_2()
 {
-	GetHotbarComponent()->ToggleSlotByIndex(1);
+	//GetHotbarComponent()->ToggleSlotByIndex(1);
 }
 
 void AUnifyCharacter::Input_Hotbar_3()
 {
-	GetHotbarComponent()->ToggleSlotByIndex(2);
+	//GetHotbarComponent()->ToggleSlotByIndex(2);
 }
 
 void AUnifyCharacter::Input_Hotbar_4()
 {
-	GetHotbarComponent()->ToggleSlotByIndex(3);
+	//GetHotbarComponent()->ToggleSlotByIndex(3);
 }
 
 void AUnifyCharacter::Input_Hotbar_5()
 {
-	GetHotbarComponent()->ToggleSlotByIndex(4);
+	//GetHotbarComponent()->ToggleSlotByIndex(4);
 }
 
 void AUnifyCharacter::Input_Hotbar_6()
 {
-	GetHotbarComponent()->ToggleSlotByIndex(5);
+	//GetHotbarComponent()->ToggleSlotByIndex(5);
 }
 /** Uncomment if you are using GameplayContainers */
 
