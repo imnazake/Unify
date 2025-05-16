@@ -1,9 +1,9 @@
 # Unify
 
-This demo project demonstrates the integration of my plugins with Unreal Engine, featuring systems like the Gameplay Ability System and Common UI, providing a strong foundation for developers.
-
 > [!NOTE]  
-> New documentation page [here](https://imnazake.github.io/imnazake/docs/gameplay-containers/features)
+> New documentation page [here](https://imnazake.github.io/imnazake/docs/unify/features)
+
+This demo project demonstrates the integration of my plugins with Unreal Engine, featuring systems like the Gameplay Ability System and Common UI, providing a strong foundation for developers.
 
 ## Getting Started
 
