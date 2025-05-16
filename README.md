@@ -28,7 +28,3 @@ Contributions and feedback are highly valued. If you encounter issues or have su
 ## License
 
 This demo project is released under the [MIT License](LICENSE).
-
-## Author
-
-Nazake
