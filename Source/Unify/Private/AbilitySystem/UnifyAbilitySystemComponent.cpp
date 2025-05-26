@@ -26,6 +26,8 @@ void UUnifyAbilitySystemComponent::InitAbilityActorInfo(AActor* InOwnerActor, AA
 		// Notify all abilities that a new pawn avatar has been set
 		for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 		{
+
+#if ENGINE_MAJOR_VERSION <= 5 && ENGINE_MINOR_VERSION <= 3
 			UUnifyGameplayAbility* AbilityCDO = CastChecked<UUnifyGameplayAbility>(AbilitySpec.Ability);
 
 			if (AbilityCDO->GetInstancingPolicy() != EGameplayAbilityInstancingPolicy::NonInstanced)
@@ -44,6 +46,21 @@ void UUnifyAbilitySystemComponent::InitAbilityActorInfo(AActor* InOwnerActor, AA
 			{
 				AbilityCDO->OnPawnAvatarSet();
 			}
+
+#elif ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 4
+			
+			TArray<UGameplayAbility*> Instances = AbilitySpec.GetAbilityInstances();
+			for (UGameplayAbility* Instance : Instances)
+			{
+				if (UUnifyGameplayAbility* AbilityInstance = Cast<UUnifyGameplayAbility>(Instance))
+				{
+					// Ability instances may be missing for replays
+					AbilityInstance->OnPawnAvatarSet();
+				}
+			}
+			
+#endif
+			
 		}
 
 		if (UUnifyAnimationInstance* AnimInstance = Cast<UUnifyAnimationInstance>(ActorInfo->GetAnimInstance()))
@@ -72,7 +89,7 @@ void UUnifyAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& In
 	{
 		for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 		{
-			if (AbilitySpec.Ability && (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)))
+			if (AbilitySpec.Ability && (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag)))
 			{
 				InputPressedSpecHandles.AddUnique(AbilitySpec.Handle);
 				InputHeldSpecHandles.AddUnique(AbilitySpec.Handle);
@@ -87,7 +104,7 @@ void UUnifyAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& I
 	{
 		for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 		{
-			if (AbilitySpec.Ability && (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)))
+			if (AbilitySpec.Ability && (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag)))
 			{
 				InputReleasedSpecHandles.AddUnique(AbilitySpec.Handle);
 				InputHeldSpecHandles.Remove(AbilitySpec.Handle);
@@ -209,7 +226,7 @@ void UUnifyAbilitySystemComponent::AbilitySpecInputPressed(FGameplayAbilitySpec&
 	if (Spec.IsActive())
 	{
 		// Invoke the InputPressed event. This is not replicated here. If someone is listening, they may replicate the InputPressed event to the server.
-		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, Spec.Handle, Spec.ActivationInfo.GetActivationPredictionKey());
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, Spec.Handle, Spec.GetPrimaryInstance()->GetCurrentActivationInfo().GetActivationPredictionKey());
 	}
 }
 
@@ -222,6 +239,6 @@ void UUnifyAbilitySystemComponent::AbilitySpecInputReleased(FGameplayAbilitySpec
 	if (Spec.IsActive())
 	{
 		// Invoke the InputReleased event. This is not replicated here. If someone is listening, they may replicate the InputReleased event to the server.
-		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, Spec.ActivationInfo.GetActivationPredictionKey());
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, Spec.GetPrimaryInstance()->GetCurrentActivationInfo().GetActivationPredictionKey());
 	}
 }
