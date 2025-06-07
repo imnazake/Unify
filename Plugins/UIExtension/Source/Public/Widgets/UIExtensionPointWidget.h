@@ -7,6 +7,8 @@
 
 #include "UIExtensionPointWidget.generated.h"
 
+#define UE_API UIEXTENSION_API
+
 class IWidgetCompilerLog;
 
 class UCommonLocalPlayer;
@@ -15,8 +17,8 @@ class APlayerState;
 /**
  * A slot that defines a location in a layout, where content can be added later
  */
-UCLASS()
-class UIEXTENSION_API UUIExtensionPointWidget : public UDynamicEntryBoxBase
+UCLASS(MinimalAPI)
+class UUIExtensionPointWidget : public UDynamicEntryBoxBase
 {
 	GENERATED_BODY()
 
@@ -25,13 +27,13 @@ public:
 	DECLARE_DYNAMIC_DELEGATE_RetVal_OneParam(TSubclassOf<UUserWidget>, FOnGetWidgetClassForData, UObject*, DataItem);
 	DECLARE_DYNAMIC_DELEGATE_TwoParams(FOnConfigureWidgetForData, UUserWidget*, Widget, UObject*, DataItem);
 
-	UUIExtensionPointWidget(const FObjectInitializer& ObjectInitializer);
+	UE_API UUIExtensionPointWidget(const FObjectInitializer& ObjectInitializer);
 
 	//~UWidget interface
-	virtual void ReleaseSlateResources(bool bReleaseChildren) override;
-	virtual TSharedRef<SWidget> RebuildWidget() override;
+	UE_API virtual void ReleaseSlateResources(bool bReleaseChildren) override;
+	UE_API virtual TSharedRef<SWidget> RebuildWidget() override;
 #if WITH_EDITOR
-	virtual void ValidateCompiledDefaults(IWidgetCompilerLog& CompileLog) const override;
+	UE_API virtual void ValidateCompiledDefaults(IWidgetCompilerLog& CompileLog) const override;
 #endif
 	//~End of UWidget interface
 
@@ -64,3 +66,5 @@ protected:
 	UPROPERTY(Transient)
 	TMap<FUIExtensionHandle, TObjectPtr<UUserWidget>> ExtensionMapping;
 };
+
+#undef UE_API

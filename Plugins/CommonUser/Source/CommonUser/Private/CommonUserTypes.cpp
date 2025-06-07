@@ -1,7 +1,11 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "CommonUserTypes.h"
+#if COMMONUSER_OSSV1
 #include "OnlineError.h"
+#else
+#include "Online/OnlineErrorDefinitions.h"
+#endif
 
 void FOnlineResultInformation::FromOnlineError(const FOnlineErrorType& InOnlineError)
 {
