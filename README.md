@@ -18,8 +18,6 @@ This demo project demonstrates the integration of my plugins with Unreal Engine,
 ## Supported Platforms
 
 -  Windows
--  Linux
--  Mac
 
 ## Contributions
 
