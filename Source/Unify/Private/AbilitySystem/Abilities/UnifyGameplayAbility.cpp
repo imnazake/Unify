@@ -88,7 +88,7 @@ void UUnifyGameplayAbility::OnRemoveAbility(const FGameplayAbilityActorInfo* Act
 
 void UUnifyGameplayAbility::TryActivateAbilityOnSpawn(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) const
 {
-	const bool bIsPredicting = (Spec.ActivationInfo.ActivationMode == EGameplayAbilityActivationMode::Predicting);
+	const bool bIsPredicting = (Spec.GetPrimaryInstance()->GetCurrentActivationInfo().ActivationMode == EGameplayAbilityActivationMode::Predicting);
 
 	// Try to activate if activation policy is on spawn.
 	if (ActorInfo && !Spec.IsActive() && !bIsPredicting && (ActivationPolicy == EGameplayAbilityActivationPolicy::OnSpawn))
