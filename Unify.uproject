@@ -75,11 +75,6 @@
 		}
 	],
 	"TargetPlatforms": [
-		"Win32",
-		"Win64",
-		"Linux",
-		"LinuxArm64",
-		"Mac",
 		"Windows"
 	]
 }
