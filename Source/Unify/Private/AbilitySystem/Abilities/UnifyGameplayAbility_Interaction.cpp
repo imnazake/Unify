@@ -389,23 +389,11 @@ void UUnifyGameplayAbility_Interaction::StartInteraction()
 				// Remove player temp tags on start
 				AbilitySystem->RemoveLooseGameplayTags(CurrentOption->PlayerTemporaryRevokedTagsOnStart);
 			
-				// Add player perma tags and effects on start
-				GrantInteractionEffectsAndTags(CurrentOption->PlayerPersistentGrantedTagsOnStart, CurrentOption->PlayerPersistentEffectsOnStart);
-			
-				// Remove player perma tags on start
-				AbilitySystem->RemoveLooseGameplayTags(CurrentOption->PlayerPersistentRevokedTagsOnStart);
-			
 				// Add target temp tags on start
 				EntityInterface->GetEntityInteractionComponent()->GrantDynamicTags(CurrentOption->TargetTemporaryGrantedTagsOnStart);
 			
 				// Remove target temp tags on start
 				EntityInterface->GetEntityInteractionComponent()->RevokeDynamicTags(CurrentOption->TargetTemporaryRevokedTagsOnStart);
-			
-				// Add target perma tags on start
-				EntityInterface->GetEntityInteractionComponent()->GrantDynamicTags(CurrentOption->TargetPersistentGrantedTagsOnStart);
-			
-				// Remove target perma tags on start
-				EntityInterface->GetEntityInteractionComponent()->RevokeDynamicTags(CurrentOption->TargetPersistentRevokedTagsOnStart);
 			}
 
 			OnExecuteInteraction();
@@ -486,23 +474,11 @@ void UUnifyGameplayAbility_Interaction::HandleTimedInteractionExecution()
 			// Remove player temp tags on start
 			AbilitySystem->RemoveLooseGameplayTags(CurrentOption->PlayerTemporaryRevokedTagsOnStart);
 			
-			// Add player perma tags and effects on start
-			GrantInteractionEffectsAndTags(CurrentOption->PlayerPersistentGrantedTagsOnStart, CurrentOption->PlayerPersistentEffectsOnStart);
-			
-			// Remove player perma tags on start
-			AbilitySystem->RemoveLooseGameplayTags(CurrentOption->PlayerPersistentRevokedTagsOnStart);
-			
 			// Add target temp tags on start
 			EntityInterface->GetEntityInteractionComponent()->GrantDynamicTags(CurrentOption->TargetTemporaryGrantedTagsOnStart);
 			
 			// Remove target temp tags on start
 			EntityInterface->GetEntityInteractionComponent()->RevokeDynamicTags(CurrentOption->TargetTemporaryRevokedTagsOnStart);
-			
-			// Add target perma tags on start
-			EntityInterface->GetEntityInteractionComponent()->GrantDynamicTags(CurrentOption->TargetPersistentGrantedTagsOnStart);
-			
-			// Remove target perma tags on start
-			EntityInterface->GetEntityInteractionComponent()->RevokeDynamicTags(CurrentOption->TargetPersistentRevokedTagsOnStart);
 		}
 	}
 
